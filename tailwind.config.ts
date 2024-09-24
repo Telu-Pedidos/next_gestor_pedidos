@@ -1,5 +1,5 @@
-import type { Config } from "tailwindcss"
-import tailwindCSSAnimate from "tailwindcss-animate"
+import type { Config } from "tailwindcss";
+import tailwindCSSAnimate from "tailwindcss-animate";
 
 const config: Config = {
   darkMode: ["class"],
@@ -57,7 +57,13 @@ const config: Config = {
           "3": "hsl(var(--chart-3))",
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))"
-        }
+        },
+        active: "hsl(var(--active))",
+        pending: "hsl(var(--pending))",
+        accepted: "hsl(var(--accepted))",
+        preparation: "hsl(var(--preparation))",
+        completed: "hsl(var(--completed))",
+        order: "hsl(var(--order))"
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -67,5 +73,5 @@ const config: Config = {
     }
   },
   plugins: [tailwindCSSAnimate]
-}
-export default config
+};
+export default config;
