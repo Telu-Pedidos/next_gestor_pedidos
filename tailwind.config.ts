@@ -63,7 +63,8 @@ const config: Config = {
         accepted: "hsl(var(--accepted))",
         preparation: "hsl(var(--preparation))",
         completed: "hsl(var(--completed))",
-        order: "hsl(var(--order))"
+        order: "hsl(var(--order))",
+        title: "hsl(var(--title))"
       },
       borderRadius: {
         lg: "var(--radius)",
