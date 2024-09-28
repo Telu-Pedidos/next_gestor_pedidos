@@ -1,9 +1,23 @@
-import { formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 export function formatDateToDays(dateString: string) {
-  if (!dateString) return "";
+  if (typeof dateString !== "string" || dateString.trim() === "") {
+    return "";
+  }
 
   const date = new Date(dateString);
-  return formatDistanceToNow(date, { locale: ptBR, addSuffix: false });
+
+  const distance = formatDistanceToNow(date, {
+    locale: ptBR,
+    addSuffix: false
+  });
+
+  return distance.replace(/^cerca de\s/, "");
 }
+
+export const formatDateNew = (dateString: string) => {
+  const date = parseISO(dateString);
+
+  return `(${format(date, "dd/MM/yyyy")})`;
+};
