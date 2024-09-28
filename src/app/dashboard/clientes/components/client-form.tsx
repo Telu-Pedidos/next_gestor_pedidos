@@ -23,6 +23,7 @@ import {
 } from "@/validations/client-validation";
 import editClient from "@/actions/client/edit-client";
 import { ClientResponse } from "@/models/client";
+import { useState } from "react";
 
 type ClientFormProps = {
   client?: ClientResponse;
@@ -31,6 +32,7 @@ type ClientFormProps = {
 
 export default function ClientForm({ client, id }: ClientFormProps) {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<ClientFormValues>({
     resolver: zodResolver(clientSchema),
@@ -43,11 +45,16 @@ export default function ClientForm({ client, id }: ClientFormProps) {
   });
 
   const onSubmit = async (data: ClientFormValues) => {
-    if (id) {
-      handleEditClient(data);
-      return;
+    setIsLoading(true);
+    try {
+      if (id) {
+        await handleEditClient(data);
+      } else {
+        await handleCreateClient(data);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
     }
-    handleCreateClient(data);
   };
 
   const handleCreateClient = async (data: ClientFormValues) => {
@@ -163,7 +170,15 @@ export default function ClientForm({ client, id }: ClientFormProps) {
           <Separator className="mt-4 block h-[1px] w-full bg-border" />
 
           <div className="col-span-2 mt-6 flex w-full flex-wrap gap-4">
-            <Button className="">Salvar</Button>
+            {id ? (
+              <Button disabled={isLoading}>
+                {isLoading ? "Alterando..." : "Alterar"}
+              </Button>
+            ) : (
+              <Button disabled={isLoading}>
+                {isLoading ? "Salvando..." : "Salvar"}
+              </Button>
+            )}
             <Button
               type="button"
               variant="outline"
