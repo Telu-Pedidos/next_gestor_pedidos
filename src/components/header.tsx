@@ -24,13 +24,13 @@ export default function Header() {
         <Link href="/dashboard" className="mb-8 flex items-center gap-3">
           <Image
             src={IMAGE.LogoSm}
-            alt="Telu Personalizados"
+            alt="Télu Personalizados"
             width={96}
             height={96}
             className="size-16 md:size-12"
           />
           <span className="text-xl font-semibold uppercase text-active">
-            Telú Pedidos
+            Télu Pedidos
           </span>
         </Link>
         <ul className="text-link flex flex-col gap-3 font-medium">

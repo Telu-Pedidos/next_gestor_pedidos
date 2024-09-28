@@ -3,7 +3,7 @@ import ClientForm from "../components/client-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Cadastrar Clientes | Telú Personalizados"
+  title: "Dashboard - Cadastrar Clientes | Télu Personalizados"
 };
 
 export default function CadastrarClientePage() {

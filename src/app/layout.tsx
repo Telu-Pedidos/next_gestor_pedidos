@@ -6,8 +6,8 @@ import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Telú Personalizados",
-  description: "Telú Personalizados"
+  title: "Télu Personalizados",
+  description: "Télu Personalizados"
 };
 
 export default function RootLayout({

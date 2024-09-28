@@ -7,9 +7,9 @@ import { Toaster } from "react-hot-toast";
 import Menu from "@/components/menu";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Telú Personalizados",
+  title: "Dashboard | Télu Personalizados",
   description:
-    "Dashboard de administrador do gestor de pedidos Telú Personalizados"
+    "Dashboard de administrador do gestor de pedidos Télu Personalizados"
 };
 
 export default async function DashboardLayout({

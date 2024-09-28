@@ -5,8 +5,8 @@ import { IMAGE } from "@/utils/image";
 import LoginForm from "./components/login-form";
 
 export const metadata: Metadata = {
-  title: "Login | Telú Personalizados",
-  description: "Logue para acessar o gestor de pedidos Telú Personalizados."
+  title: "Login | Télu Personalizados",
+  description: "Logue para acessar o gestor de pedidos Télu Personalizados."
 };
 
 export default function LoginPage() {
@@ -16,7 +16,7 @@ export default function LoginPage() {
         <div className="hidden md:block">
           <Image
             src={IMAGE.Logo}
-            alt="Telu Personalizados"
+            alt="Télu Personalizados"
             width={320}
             height={320}
           />
@@ -26,7 +26,7 @@ export default function LoginPage() {
           <div className="mb-6">
             <Image
               src={IMAGE.LogoSm}
-              alt="Telu Personalizados"
+              alt="Télu Personalizados"
               width={96}
               height={96}
               className="size-16 md:size-12"
