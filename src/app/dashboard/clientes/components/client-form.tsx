@@ -73,7 +73,6 @@ export default function ClientForm({ client, id }: ClientFormProps) {
 
     try {
       const result = await editClient(data, id);
-      console.log(result);
       if (!result.ok) {
         toast.error(result.error);
         return;
@@ -81,7 +80,7 @@ export default function ClientForm({ client, id }: ClientFormProps) {
       toast.success("Cliente alterado com sucesso!");
       router.push("/dashboard/clientes");
     } catch (error) {
-      console.log("Erro no servidor", error);
+      console.error("Erro no servidor", error);
       toast.error("Ocorreu um erro ao alterar o cliente.");
     }
   };

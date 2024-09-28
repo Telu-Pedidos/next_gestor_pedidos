@@ -93,11 +93,15 @@ export const clientsColumns: ColumnDef<ClientResponse>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div className="lowercase">
-        {formatPhoneNumber(row.getValue("phone"))}
-      </div>
-    )
+    cell: ({ row }) => {
+      const client = row.original;
+
+      return (
+        <div className="lowercase">
+          {client.phone ? formatPhoneNumber(client.phone) : "-"}
+        </div>
+      );
+    }
   },
   {
     accessorKey: "createdAt",
@@ -167,12 +171,16 @@ export const clientsColumns: ColumnDef<ClientResponse>[] = [
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-10">
-                    <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
-                      <PhoneIcon className="size-[0.875rem]" />
-                      <p className="text-sm font-medium">
-                        {formatPhoneNumber(row.getValue("phone"))}
-                      </p>
-                    </div>
+                    {client.phone ? (
+                      <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
+                        <PhoneIcon className="size-[0.875rem]" />
+                        <p className="text-sm font-medium">
+                          {formatPhoneNumber(row.getValue("phone"))}
+                        </p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     {client.email ? (
                       <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
                         <MailIcon className="size-[0.875rem]" />
@@ -252,22 +260,28 @@ export const clientsColumns: ColumnDef<ClientResponse>[] = [
   {
     accessorKey: "message",
     header: "",
-    cell: ({ row }) => (
-      <Button
-        variant="secondary"
-        size="sm"
-        className="gap-1.5 border-[#3CAF3.57] text-[#3CAF47]"
-        asChild
-      >
-        <Link
-          target="_blank"
-          href={`https://wa.me/${regexPhoneNumber(row.getValue("phone"))}`}
+    cell: ({ row }) => {
+      const client = row.original;
+
+      if (!client.phone) return;
+
+      return (
+        <Button
+          variant="secondary"
+          size="sm"
+          className="gap-1.5 border-[#3CAF3.57] text-[#3CAF47]"
+          asChild
         >
-          <ICON.Whatsapp className="size-4" />
-          Mensagem
-        </Link>
-      </Button>
-    )
+          <Link
+            target="_blank"
+            href={`https://wa.me/${regexPhoneNumber(client.phone || "")}`}
+          >
+            <ICON.Whatsapp className="size-4" />
+            Mensagem
+          </Link>
+        </Button>
+      );
+    }
   },
   {
     id: "actions",
@@ -284,10 +298,14 @@ export const clientsColumns: ColumnDef<ClientResponse>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => copyPhone(client.phone)}>
-              Copiar telefone
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            {client.phone && (
+              <>
+                <DropdownMenuItem onClick={() => copyPhone(client.phone || "")}>
+                  Copiar telefone
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </>
+            )}
             <DropdownMenuItem
               asChild
               className="flex items-center gap-2 text-active"

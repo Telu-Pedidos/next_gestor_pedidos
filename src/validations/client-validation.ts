@@ -9,8 +9,11 @@ export const clientSchema = z.object({
     .max(100, "O nome não pode ter mais de 100 caracteres"),
   phone: z
     .string()
-    .min(1, "O telefone é obrigatório")
-    .regex(phoneRegex, "Forneça um número de telefone válido"),
+    .optional()
+    .refine(
+      (value) => !value || phoneRegex.test(value),
+      "Forneça um número de telefone válido"
+    ),
   email: z
     .string()
     .optional()

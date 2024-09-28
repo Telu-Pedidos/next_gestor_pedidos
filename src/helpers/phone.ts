@@ -1,5 +1,5 @@
 export function formatPhoneNumber(phone: string) {
-  if (!phone) return "";
+  if (!phone || phone.trim() === "") return "";
 
   const cleaned = regexPhoneNumber(phone);
 
@@ -13,5 +13,7 @@ export function formatPhoneNumber(phone: string) {
 }
 
 export function regexPhoneNumber(phone: string) {
+  if (!phone || phone.trim() === "") return "";
+
   return phone.replace(/\D/g, "");
 }
