@@ -32,7 +32,7 @@ import {
   getLastDateOrder,
   getQuantityOrders,
   getTotalSpentOrder
-} from "../client-functions";
+} from "@/app/dashboard/clientes/client-functions";
 import { formatPrice } from "@/utils/format-price";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
