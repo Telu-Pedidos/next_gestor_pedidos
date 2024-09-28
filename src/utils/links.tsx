@@ -1,3 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import {
+  ChartColumnIncreasingIcon,
+  CircleUserIcon,
+  ClipboardListIcon,
+  HouseIcon,
+  PackageSearchIcon,
+  StickyNoteIcon
+} from "lucide-react";
+
 export const menuLinks = [
   {
     href: "/dashboard",
@@ -30,3 +41,12 @@ export const menuLinks = [
     name: "Relatórios"
   }
 ];
+
+export const iconsLinks: any = {
+  home: <HouseIcon />,
+  orderHistory: <ClipboardListIcon />,
+  products: <PackageSearchIcon />,
+  categories: <StickyNoteIcon />,
+  clients: <CircleUserIcon />,
+  reports: <ChartColumnIncreasingIcon />
+};
