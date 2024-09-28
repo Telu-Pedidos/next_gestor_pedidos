@@ -2,9 +2,10 @@ import React from "react";
 import ClientForm from "../../components/client-form";
 import { Metadata } from "next";
 import getClientId from "@/actions/client/get-client-id";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Alterar Cliente | Telú Personalizados"
+  title: "Dashboard - Alterar Cliente | Télu Personalizados"
 };
 
 type ClientIdParams = {
@@ -17,6 +18,8 @@ export default async function AlterarClientePage({
   params: { id }
 }: ClientIdParams) {
   const { data } = await getClientId({ id });
+
+  if (!data) notFound();
 
   return (
     <main className="max-w-[1180px] space-y-8 rounded-md bg-card px-5 pb-9 pt-4">
