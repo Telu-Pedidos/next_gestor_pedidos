@@ -1,8 +1,8 @@
 "use server";
 
-import { LoginFormValues } from "@/components/login/validation-login";
 import { LOGIN } from "@/functions/api";
 import apiError from "@/functions/api-error";
+import { LoginFormValues } from "@/validations/login-validation";
 import { cookies } from "next/headers";
 
 export default async function login(formData: LoginFormValues) {

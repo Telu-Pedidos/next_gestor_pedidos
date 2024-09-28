@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 import { Metadata } from "next";
-import LoginForm from "@/components/login/login-form";
 import { IMAGE } from "@/utils/image";
+import LoginForm from "./components/login-form";
 
 export const metadata: Metadata = {
   title: "Login | Telú Personalizados",

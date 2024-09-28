@@ -1,15 +1,14 @@
 "use client";
 
-import logout from "@/actions/logout";
+import logout from "@/actions/auth/logout";
 import { IMAGE } from "@/utils/image";
-import { menuLinks } from "@/utils/links";
+import { iconsLinks, menuLinks } from "@/utils/links";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { LogOutIcon } from "lucide-react";
 import toast from "react-hot-toast";
-import { iconsLinks } from "@/utils/icon-links";
 
 export default function Header() {
   const path = usePathname();

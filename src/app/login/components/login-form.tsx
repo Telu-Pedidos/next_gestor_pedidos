@@ -13,12 +13,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from "../ui/form";
+} from "../../../components/ui/form";
 
 import { useRouter } from "next/navigation";
-import login from "@/actions/login";
+import login from "@/actions/auth/login";
 import toast from "react-hot-toast";
-import { LoginFormValues, loginSchema } from "./validation-login";
+import { LoginFormValues, loginSchema } from "@/validations/login-validation";
 
 export default function LoginForm() {
   const router = useRouter();
