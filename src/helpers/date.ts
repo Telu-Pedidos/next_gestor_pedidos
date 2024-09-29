@@ -16,8 +16,16 @@ export function formatDateToDays(dateString: string) {
   return distance.replace(/^cerca de\s/, "");
 }
 
-export const formatDateNew = (dateString: string) => {
+export function formatDateNew(dateString: string): string {
+  if (!dateString) {
+    return "-";
+  }
+
   const date = parseISO(dateString);
 
-  return `(${format(date, "dd/MM/yyyy")})`;
-};
+  if (isNaN(date.getTime())) {
+    return "-";
+  }
+
+  return format(date, "dd/MM/yyyy");
+}
