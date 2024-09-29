@@ -1,20 +1,16 @@
+import { z } from "zod";
 import { CategoryResponse } from "./category";
 import { ModelResponse } from "./model";
+import { productSchema } from "@/validations/product-validation";
 
-export interface ProductDTO {
-  name: string;
-  price: number;
-  categoryId: number;
-  slug?: string;
-  imageUrl?: string;
-  modelId?: number;
-}
+export type ProductDTO = z.infer<typeof productSchema>;
 
-export interface ProductResponse extends ProductDTO {
+export type ProductResponse = ProductDTO & {
   id: number;
+  slug: string;
   active: boolean;
   createdAt: string;
   updatedAt: string;
-  category: CategoryResponse;
-  model: ModelResponse;
-}
+  category?: CategoryResponse;
+  model?: ModelResponse;
+};
