@@ -1,7 +1,5 @@
 "use client";
 
-import ImageProduct from "/public/assets/image-product.jpg";
-
 import {
   BanknoteIcon,
   CalendarIcon,
@@ -42,6 +40,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "../ui/dropdown-menu";
+import { transformPhotoProduct } from "@/utils/photo-product";
 
 export default function OrderCard({
   status,
@@ -191,7 +190,7 @@ export default function OrderCard({
             <span className="text-[#282510]">Itens</span>
             <div className="flex items-center gap-2 font-semibold text-foreground">
               <Image
-                src={ImageProduct}
+                src={transformPhotoProduct(undefined)}
                 alt=""
                 width={40}
                 height={40}
