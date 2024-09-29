@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/components/loading";
+import LoadingComponent from "@/components/loading";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
@@ -8,5 +8,5 @@ export default function HomePage() {
 
   router.push("/dashboard");
 
-  return <Loading />;
+  return <LoadingComponent />;
 }
