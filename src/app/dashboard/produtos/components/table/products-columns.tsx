@@ -1,23 +1,14 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { PencilIcon } from "lucide-react";
-import Link from "next/link";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { formatPrice } from "@/utils/format-price";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 import { formatDateNew } from "@/helpers/date";
 import { ProductResponse } from "@/models/product";
 import Image from "next/image";
-import ProductDelete from "../product-delete";
 import { transformPhotoProduct } from "@/utils/photo-product";
 import ProductState from "../product-state";
+import ProductActions from "../product-actions";
 
 export const productsColumns: ColumnDef<ProductResponse>[] = [
   {
@@ -133,37 +124,7 @@ export const productsColumns: ColumnDef<ProductResponse>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const product = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Abrir Menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              asChild
-              className="flex items-center gap-2 text-active"
-            >
-              <Link
-                href={`/dashboard/produtos/alterar/${product.id}/${product.slug}`}
-              >
-                <PencilIcon className="size-4" />
-                Editar Produto
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              asChild
-              className="flex items-center gap-2 text-active"
-            >
-              <ProductDelete name={product.name} id={String(product.id)} />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <ProductActions product={product} />;
     }
   }
 ];
