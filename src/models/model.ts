@@ -1,8 +1,8 @@
-export interface ModelDTO {
-  name: string;
-  imageUrl?: string;
-}
+import { modelSchema } from "@/validations/model-validation";
+import { z } from "zod";
 
-export interface ModelResponse extends ModelDTO {
+export type ModelDTO = z.infer<typeof modelSchema>;
+
+export type ModelResponse = ModelDTO & {
   id: number;
-}
+};

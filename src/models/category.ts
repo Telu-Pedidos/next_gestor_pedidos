@@ -1,8 +1,9 @@
-export interface CategoryDTO {
-  name: string;
-  slug?: string;
-}
+import { categorySchema } from "@/validations/category-validation";
+import { z } from "zod";
 
-export interface CategoryResponse extends CategoryDTO {
+export type CategoryDTO = z.infer<typeof categorySchema>;
+
+export type CategoryResponse = CategoryDTO & {
   id: number;
-}
+  slug: string;
+};
