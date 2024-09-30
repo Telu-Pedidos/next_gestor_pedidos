@@ -77,3 +77,63 @@ export function DEACTIVATE_PRODUCT(id: string) {
     url: `${API_URL}/products/${id}/deactivate`
   };
 }
+
+export function POST_CATEGORY() {
+  return {
+    url: API_URL + "/categories"
+  };
+}
+
+export function PUT_CATEGORY(id: string) {
+  return {
+    url: `${API_URL}/categories/${id}`
+  };
+}
+
+export function GET_CATEGORIES() {
+  return {
+    url: API_URL + "/categories"
+  };
+}
+
+export function GET_CATEGORY_ID(id: string) {
+  return {
+    url: `${API_URL}/categories/${id}`
+  };
+}
+
+export function DELETE_CATEGORY(id: string) {
+  return {
+    url: `${API_URL}/categories/${id}`
+  };
+}
+
+export function POST_MODEL() {
+  return {
+    url: API_URL + "/models"
+  };
+}
+
+export function PUT_MODEL(id: string) {
+  return {
+    url: `${API_URL}/models/${id}`
+  };
+}
+
+export function GET_MODELS() {
+  return {
+    url: API_URL + "/models"
+  };
+}
+
+export function GET_MODEL_ID(id: string) {
+  return {
+    url: `${API_URL}/models/${id}`
+  };
+}
+
+export function DELETE_MODEL(id: string) {
+  return {
+    url: `${API_URL}/models/${id}`
+  };
+}
