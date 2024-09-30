@@ -9,13 +9,17 @@ import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { LogOutIcon } from "lucide-react";
 import toast from "react-hot-toast";
+import { useTransition } from "react";
 
 export default function Header() {
+  const [isPending, startTransition] = useTransition();
   const path = usePathname();
 
   async function handleLogout() {
-    await logout();
-    toast.success("Usuário deslogado com sucesso!");
+    startTransition(async () => {
+      await logout();
+      toast.success("Usuário deslogado com sucesso!");
+    });
   }
 
   return (
@@ -55,6 +59,7 @@ export default function Header() {
             variant="link"
             size="normal"
             onClick={handleLogout}
+            disabled={isPending}
           >
             <LogOutIcon className="size-6" />
             <span className="text-base font-medium text-inherit">Sair</span>

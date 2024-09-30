@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -11,13 +10,10 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import toast from "react-hot-toast";
-import { useState } from "react";
 import {
   ProductFormValues,
   productSchema
@@ -30,15 +26,12 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import createProduct from "@/actions/product/create-product";
-import editProduct from "@/actions/product/edit-product";
-
-import { uploadImage } from "@/lib/cloudinary/upload-image";
 import Image from "next/image";
 import { CameraIcon } from "lucide-react";
 import { transformPhotoProduct } from "@/utils/photo-product";
 import useCategories from "@/hooks/useCategories";
 import useModels from "@/hooks/useModels";
+import useProducts from "@/hooks/useProducts";
 
 type ProductFormProps = {
   product?: ProductResponse;
@@ -46,15 +39,6 @@ type ProductFormProps = {
 };
 
 export default function ProductForm({ product, id }: ProductFormProps) {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const [previewImage, setPreviewImage] = useState<string>("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const { categories } = useCategories();
-  const { models } = useModels();
-
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -67,81 +51,17 @@ export default function ProductForm({ product, id }: ProductFormProps) {
     }
   });
 
-  const onSubmit = async (data: ProductFormValues) => {
-    setIsLoading(true);
-    try {
-      if (data.file) {
-        const formData = new FormData();
-        formData.append("upload-image", data.file);
-        const uploadResult = await uploadImage(formData);
-        if (uploadResult?.secure_url) {
-          data.imageUrl = uploadResult.secure_url;
-        } else {
-          toast.error("Erro ao fazer upload da imagem.");
-          return;
-        }
-      }
+  const { categories } = useCategories();
+  const { models } = useModels();
 
-      if (id) {
-        await handleEditProduct(data);
-      } else {
-        await handleCreateProduct(data);
-      }
-    } catch (error) {
-      console.error("Erro:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleCreateProduct = async (data: ProductFormValues) => {
-    const { file, ...newData } = data;
-
-    try {
-      const result = await createProduct(newData);
-      if (!result.ok) {
-        toast.error(result.error);
-        return;
-      }
-      toast.success("Produto cadastrado com sucesso!");
-      router.push("/dashboard/produtos");
-    } catch (error) {
-      console.error("Erro no servidor", error);
-      toast.error("Ocorreu um erro ao cadastrar o produto.");
-    }
-  };
-
-  const handleEditProduct = async (data: ProductFormValues) => {
-    if (!id) {
-      router.push("/dashboard/produtos");
-      return;
-    }
-
-    const { file, ...newData } = data;
-
-    try {
-      const result = await editProduct(newData, id);
-      if (!result.ok) {
-        toast.error(result.error);
-        return;
-      }
-      toast.success("Produto alterado com sucesso!");
-      router.push("/dashboard/produtos");
-    } catch (error) {
-      console.error("Erro no servidor", error);
-      toast.error("Ocorreu um erro ao alterar o produto.");
-    }
-  };
-
-  const handleCancel = () => {
-    router.push("/dashboard/produtos");
-  };
-  const handleImageChange = (file: File | null) => {
-    if (file) {
-      setSelectedFile(file);
-      setPreviewImage(URL.createObjectURL(file));
-    }
-  };
+  const {
+    onSubmit,
+    selectedFile,
+    previewImage,
+    handleCancel,
+    handleImageChange,
+    isPending
+  } = useProducts({ id });
 
   return (
     <>
@@ -343,12 +263,12 @@ export default function ProductForm({ product, id }: ProductFormProps) {
 
           <div className="col-span-2 mt-6 flex w-full flex-wrap gap-4">
             {id ? (
-              <Button disabled={isLoading}>
-                {isLoading ? "Alterando..." : "Alterar"}
+              <Button disabled={isPending}>
+                {isPending ? "Alterando..." : "Alterar"}
               </Button>
             ) : (
-              <Button disabled={isLoading}>
-                {isLoading ? "Salvando..." : "Salvar"}
+              <Button disabled={isPending}>
+                {isPending ? "Salvando..." : "Salvar"}
               </Button>
             )}
             <Button

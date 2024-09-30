@@ -14,15 +14,10 @@ import {
   FormLabel,
   FormMessage
 } from "../../../components/ui/form";
-
-import { useRouter } from "next/navigation";
-import login from "@/actions/auth/login";
-import toast from "react-hot-toast";
 import { LoginFormValues, loginSchema } from "@/validations/login-validation";
+import useLogin from "@/hooks/useLogin";
 
 export default function LoginForm() {
-  const router = useRouter();
-
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -31,24 +26,7 @@ export default function LoginForm() {
     }
   });
 
-  const {
-    formState: { isSubmitting }
-  } = form;
-
-  const onSubmit = async (data: LoginFormValues) => {
-    try {
-      const result = await login(data);
-      if (!result.ok) {
-        toast.error("Senha ou usuário inválidos.");
-        return;
-      }
-      toast.success("Usuário logado com sucesso!");
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Erro no servidor", error);
-      toast.error("Erro no servidor.");
-    }
-  };
+  const { onSubmit, isPending } = useLogin();
 
   return (
     <>
@@ -85,8 +63,8 @@ export default function LoginForm() {
           />
 
           <div className="mt-6 w-full space-y-4">
-            <Button className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Entrando..." : "Entrar"}
+            <Button className="w-full" disabled={isPending}>
+              {isPending ? "Entrando..." : "Entrar"}
             </Button>
             <Button
               type="button"

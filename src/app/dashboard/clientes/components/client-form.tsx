@@ -10,20 +10,16 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import toast from "react-hot-toast";
-import createClient from "@/actions/client/create-client";
 import {
   ClientFormValues,
   clientSchema
 } from "@/validations/client-validation";
-import editClient from "@/actions/client/edit-client";
 import { ClientResponse } from "@/models/client";
-import { useState } from "react";
+import useClients from "@/hooks/useClients";
 
 type ClientFormProps = {
   client?: ClientResponse;
@@ -31,9 +27,6 @@ type ClientFormProps = {
 };
 
 export default function ClientForm({ client, id }: ClientFormProps) {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
   const form = useForm<ClientFormValues>({
     resolver: zodResolver(clientSchema),
     defaultValues: {
@@ -44,57 +37,7 @@ export default function ClientForm({ client, id }: ClientFormProps) {
     }
   });
 
-  const onSubmit = async (data: ClientFormValues) => {
-    setIsLoading(true);
-    try {
-      if (id) {
-        await handleEditClient(data);
-      } else {
-        await handleCreateClient(data);
-      }
-    } catch (error) {
-      console.error("Erro:", error);
-    }
-  };
-
-  const handleCreateClient = async (data: ClientFormValues) => {
-    try {
-      const result = await createClient(data);
-      if (!result.ok) {
-        toast.error(result.error);
-        return;
-      }
-      toast.success("Cliente cadastrado com sucesso!");
-      router.push("/dashboard/clientes");
-    } catch (error) {
-      console.error("Erro no servidor", error);
-      toast.error("Ocorreu um erro ao cadastrar o cliente.");
-    }
-  };
-
-  const handleEditClient = async (data: ClientFormValues) => {
-    if (!id) {
-      router.push("/dashboard/clientes");
-      return;
-    }
-
-    try {
-      const result = await editClient(data, id);
-      if (!result.ok) {
-        toast.error(result.error);
-        return;
-      }
-      toast.success("Cliente alterado com sucesso!");
-      router.push("/dashboard/clientes");
-    } catch (error) {
-      console.error("Erro no servidor", error);
-      toast.error("Ocorreu um erro ao alterar o cliente.");
-    }
-  };
-
-  const handleCancel = () => {
-    router.push("/dashboard/clientes");
-  };
+  const { onSubmit, handleCancel, isPending } = useClients({ id });
 
   return (
     <>
@@ -171,12 +114,12 @@ export default function ClientForm({ client, id }: ClientFormProps) {
 
           <div className="col-span-2 mt-6 flex w-full flex-wrap gap-4">
             {id ? (
-              <Button disabled={isLoading}>
-                {isLoading ? "Alterando..." : "Alterar"}
+              <Button disabled={isPending}>
+                {isPending ? "Alterando..." : "Alterar"}
               </Button>
             ) : (
-              <Button disabled={isLoading}>
-                {isLoading ? "Salvando..." : "Salvar"}
+              <Button disabled={isPending}>
+                {isPending ? "Salvando..." : "Salvar"}
               </Button>
             )}
             <Button
