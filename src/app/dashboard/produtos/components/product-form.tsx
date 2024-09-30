@@ -51,18 +51,17 @@ export default function ProductForm({ product, id }: ProductFormProps) {
 
   const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedOption, setSelectedOption] = useState(product?.category);
 
-  const { isPendingCategories, categories } = useCategories();
-  const { isPendingModels, models } = useModels();
+  const { categories } = useCategories();
+  const { models } = useModels();
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: product?.name || "",
       price: product?.price || 0,
-      categoryId: product?.categoryId || "",
-      modelId: product?.modelId || "",
+      categoryId: product?.categoryId,
+      modelId: product?.modelId,
       imageUrl: product?.imageUrl || "",
       file: product?.file || undefined
     }
@@ -260,7 +259,12 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                 <FormItem className="w-48 space-y-1">
                   <FormLabel className="text-[#595548]">Categoria</FormLabel>
                   <Select
-                    value={field.value || String(product?.category?.id)}
+                    value={
+                      field.value ||
+                      (product?.category?.id
+                        ? String(product?.category?.id)
+                        : undefined)
+                    }
                     onValueChange={(value) => {
                       field.onChange(value);
                     }}
@@ -292,7 +296,12 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                 <FormItem className="w-48 space-y-1">
                   <FormLabel className="text-[#595548]">Modelo</FormLabel>
                   <Select
-                    value={field.value || String(product?.model?.id)}
+                    value={
+                      field.value ||
+                      (product?.model?.id
+                        ? String(product?.model?.id)
+                        : undefined)
+                    }
                     onValueChange={(value) => {
                       field.onChange(value);
                     }}
@@ -304,7 +313,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                     </FormControl>
                     <SelectContent>
                       {models?.map((model) => (
-                        <SelectItem key={model.id} value={String(model.id)}>
+                        <SelectItem value={String(model.id)} key={model.id}>
                           <div>
                             {model?.imageUrl && (
                               <>
