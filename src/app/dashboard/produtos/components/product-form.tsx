@@ -37,6 +37,8 @@ import { uploadImage } from "@/lib/cloudinary/upload-image";
 import Image from "next/image";
 import { CameraIcon } from "lucide-react";
 import { transformPhotoProduct } from "@/utils/photo-product";
+import useCategories from "@/hooks/useCategories";
+import useModels from "@/hooks/useModels";
 
 type ProductFormProps = {
   product?: ProductResponse;
@@ -49,6 +51,10 @@ export default function ProductForm({ product, id }: ProductFormProps) {
 
   const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedOption, setSelectedOption] = useState(product?.category);
+
+  const { isPendingCategories, categories } = useCategories();
+  const { isPendingModels, models } = useModels();
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
@@ -246,7 +252,6 @@ export default function ProductForm({ product, id }: ProductFormProps) {
             />
           </div>
 
-          {/* 
           <div className="flex gap-8">
             <FormField
               control={form.control}
@@ -254,15 +259,26 @@ export default function ProductForm({ product, id }: ProductFormProps) {
               render={({ field }) => (
                 <FormItem className="w-48 space-y-1">
                   <FormLabel className="text-[#595548]">Categoria</FormLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value || String(product?.category?.id)}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                    }}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione a categoria..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="all">Geral</SelectItem>
-                      <SelectItem value="top">Topo</SelectItem>
+                      {categories?.map((category) => (
+                        <SelectItem
+                          value={String(category.id)}
+                          key={category.id}
+                        >
+                          {category.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -275,15 +291,37 @@ export default function ProductForm({ product, id }: ProductFormProps) {
               render={({ field }) => (
                 <FormItem className="w-48 space-y-1">
                   <FormLabel className="text-[#595548]">Modelo</FormLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value || String(product?.model?.id)}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                    }}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o modelo..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="model1">Modelo 1</SelectItem>
-                      <SelectItem value="model2">Modelo 2</SelectItem>
+                      {models?.map((model) => (
+                        <SelectItem key={model.id} value={String(model.id)}>
+                          <div>
+                            {model?.imageUrl && (
+                              <>
+                                <Image
+                                  src={model.imageUrl}
+                                  width={32}
+                                  height={32}
+                                  className="h-8 w-8"
+                                  alt={model.name}
+                                />
+                                -
+                              </>
+                            )}{" "}
+                            <span>{model.name}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -291,7 +329,6 @@ export default function ProductForm({ product, id }: ProductFormProps) {
               )}
             />
           </div>
-           */}
 
           <Separator className="mt-4 block h-[1px] w-full bg-border" />
 
