@@ -137,3 +137,73 @@ export function DELETE_MODEL(id: string) {
     url: `${API_URL}/models/${id}`
   };
 }
+
+export function POST_ORDER() {
+  return {
+    url: API_URL + "/orders"
+  };
+}
+
+export function PUT_ORDER(id: string) {
+  return {
+    url: `${API_URL}/orders/${id}`
+  };
+}
+
+export function GET_ORDERS({
+  status,
+  startDate,
+  endDate
+}: {
+  status?: string;
+  startDate?: string;
+  endDate?: string;
+}) {
+  const query = [
+    status ? `status=${status}` : null,
+    startDate ? `startDate=${startDate}` : null,
+    endDate ? `endDate=${endDate}` : null
+  ]
+    .filter(Boolean)
+    .join("&");
+
+  const url = `${API_URL}/orders${query ? `?${query}` : ""}`;
+
+  return { url };
+}
+
+export function GET_ORDER_ID(id: string) {
+  return {
+    url: `${API_URL}/orders/${id}`
+  };
+}
+
+export function DELETE_ORDER(id: string) {
+  return {
+    url: `${API_URL}/orders/${id}`
+  };
+}
+
+export function FINISH_ORDER(id: string) {
+  return {
+    url: `${API_URL}/orders/${id}/finish`
+  };
+}
+
+export function CANCEL_ORDER(id: string) {
+  return {
+    url: `${API_URL}/orders/${id}/cancel`
+  };
+}
+
+export function NEW_STATUS_ORDER({
+  id,
+  newStatus
+}: {
+  id: string;
+  newStatus: string;
+}) {
+  return {
+    url: `${API_URL}/orders/${id}/status?newStatus=${newStatus}`
+  };
+}
