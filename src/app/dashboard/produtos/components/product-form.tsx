@@ -234,7 +234,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                     <SelectContent>
                       {models?.map((model) => (
                         <SelectItem value={String(model.id)} key={model.id}>
-                          <div>
+                          <div className="flex items-center gap-2">
                             {model?.imageUrl && (
                               <>
                                 <Image
