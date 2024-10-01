@@ -7,8 +7,6 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export default async function createProduct(formData: ProductFormValues) {
-  console.log("createProduct foi chamado");
-
   try {
     const { url } = POST_PRODUCT();
     const token = cookies().get("token")?.value;
