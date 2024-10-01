@@ -10,7 +10,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { TrashIcon } from "lucide-react";
-import { useState } from "react";
+import { useTransition } from "react";
 import toast from "react-hot-toast";
 
 type CategoryDeleteProps = {
@@ -19,19 +19,18 @@ type CategoryDeleteProps = {
 };
 
 export default function CategoryDelete({ id, name }: CategoryDeleteProps) {
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   async function handleClick() {
-    setLoading(true);
-    try {
-      await deleteCategory(id);
-      toast.success("categoria deletada com sucesso");
-    } catch (error) {
-      console.error(error);
-      toast.error("ocorreu um erro ao tentar excluir a categoria");
-    } finally {
-      setLoading(false);
-    }
+    startTransition(async () => {
+      try {
+        await deleteCategory(id);
+        toast.success("categoria deletada com sucesso");
+      } catch (error) {
+        console.error(error);
+        toast.error("ocorreu um erro ao tentar excluir a categoria");
+      }
+    });
   }
 
   return (
@@ -59,7 +58,7 @@ export default function CategoryDelete({ id, name }: CategoryDeleteProps) {
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
           <DialogClose>
-            {loading ? (
+            {isPending ? (
               <Button variant="destructive" onClick={handleClick} disabled>
                 Excluindo...
               </Button>

@@ -10,7 +10,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { TrashIcon, TriangleAlertIcon } from "lucide-react";
-import { useState } from "react";
+import { useTransition } from "react";
 import toast from "react-hot-toast";
 
 type ClientDeleteProps = {
@@ -19,19 +19,18 @@ type ClientDeleteProps = {
 };
 
 export default function ClientDelete({ id, name }: ClientDeleteProps) {
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   async function handleClick() {
-    setLoading(true);
-    try {
-      await deleteClient(id);
-      toast.success("cliente deletado com sucesso");
-    } catch (error) {
-      console.error(error);
-      toast.error("ocorreu um erro ao tentar excluir o cliente");
-    } finally {
-      setLoading(false);
-    }
+    startTransition(async () => {
+      try {
+        await deleteClient(id);
+        toast.success("cliente deletado com sucesso");
+      } catch (error) {
+        console.error(error);
+        toast.error("ocorreu um erro ao tentar excluir o cliente");
+      }
+    });
   }
 
   return (
@@ -71,7 +70,7 @@ export default function ClientDelete({ id, name }: ClientDeleteProps) {
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
           <DialogClose>
-            {loading ? (
+            {isPending ? (
               <Button variant="destructive" onClick={handleClick} disabled>
                 Excluindo...
               </Button>

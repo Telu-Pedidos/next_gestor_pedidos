@@ -10,7 +10,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { TrashIcon } from "lucide-react";
-import { useState } from "react";
+import { useTransition } from "react";
 import toast from "react-hot-toast";
 
 type ProductDeleteProps = {
@@ -19,19 +19,18 @@ type ProductDeleteProps = {
 };
 
 export default function ProductDelete({ id, name }: ProductDeleteProps) {
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   async function handleClick() {
-    setLoading(true);
-    try {
-      await deleteProduct(id);
-      toast.success("produto deletado com sucesso");
-    } catch (error) {
-      console.error(error);
-      toast.error("ocorreu um erro ao tentar excluir o produto");
-    } finally {
-      setLoading(false);
-    }
+    startTransition(async () => {
+      try {
+        await deleteProduct(id);
+        toast.success("produto deletado com sucesso");
+      } catch (error) {
+        console.error(error);
+        toast.error("ocorreu um erro ao tentar excluir o produto");
+      }
+    });
   }
 
   return (
@@ -59,7 +58,7 @@ export default function ProductDelete({ id, name }: ProductDeleteProps) {
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
           <DialogClose>
-            {loading ? (
+            {isPending ? (
               <Button variant="destructive" onClick={handleClick} disabled>
                 Excluindo...
               </Button>

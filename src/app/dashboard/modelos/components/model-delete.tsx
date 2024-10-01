@@ -10,7 +10,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { TrashIcon } from "lucide-react";
-import { useState } from "react";
+import { useTransition } from "react";
 import toast from "react-hot-toast";
 
 type ModelDeleteProps = {
@@ -19,19 +19,18 @@ type ModelDeleteProps = {
 };
 
 export default function ModelDelete({ id, name }: ModelDeleteProps) {
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   async function handleClick() {
-    setLoading(true);
-    try {
-      await deleteModel(id);
-      toast.success("modelo deletado com sucesso");
-    } catch (error) {
-      console.error(error);
-      toast.error("ocorreu um erro ao tentar excluir o modelo");
-    } finally {
-      setLoading(false);
-    }
+    startTransition(async () => {
+      try {
+        await deleteModel(id);
+        toast.success("modelo deletado com sucesso");
+      } catch (error) {
+        console.error(error);
+        toast.error("ocorreu um erro ao tentar excluir o modelo");
+      }
+    });
   }
 
   return (
@@ -59,7 +58,7 @@ export default function ModelDelete({ id, name }: ModelDeleteProps) {
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
           <DialogClose>
-            {loading ? (
+            {isPending ? (
               <Button variant="destructive" onClick={handleClick} disabled>
                 Excluindo...
               </Button>
