@@ -7,5 +7,6 @@ export type ClientDTO = z.infer<typeof clientSchema>;
 export type ClientResponse = ClientDTO & {
   id: string;
   createdAt: string;
+  updatedAt: string;
   orders?: OrderResponse[];
 };
