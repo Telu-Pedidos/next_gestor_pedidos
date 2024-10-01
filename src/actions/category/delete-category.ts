@@ -27,5 +27,5 @@ export default async function deleteCategory(id: string) {
     return apiError(error);
   }
   revalidateTag("categories");
-  redirect("/dashboard/produtos");
+  redirect("/dashboard/categorias");
 }
