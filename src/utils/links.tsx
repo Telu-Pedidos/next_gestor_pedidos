@@ -4,6 +4,7 @@ import {
   ChartColumnIncreasingIcon,
   CircleUserIcon,
   ClipboardListIcon,
+  ComponentIcon,
   HouseIcon,
   PackageSearchIcon,
   StickyNoteIcon
@@ -31,6 +32,11 @@ export const menuLinks = [
     name: "Categorias"
   },
   {
+    href: "/dashboard/modelos",
+    id: "models",
+    name: "Modelos"
+  },
+  {
     href: "/dashboard/clientes",
     id: "clients",
     name: "Clientes"
@@ -47,6 +53,7 @@ export const iconsLinks: any = {
   orderHistory: <ClipboardListIcon />,
   products: <PackageSearchIcon />,
   categories: <StickyNoteIcon />,
+  models: <ComponentIcon />,
   clients: <CircleUserIcon />,
   reports: <ChartColumnIncreasingIcon />
 };

@@ -27,5 +27,5 @@ export default async function deleteModel(id: string) {
     return apiError(error);
   }
   revalidateTag("models");
-  redirect("/dashboard/models");
+  redirect("/dashboard/modelos");
 }
