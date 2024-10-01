@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import {
   ProductFormValues,
   productSchema
@@ -32,6 +31,7 @@ import { transformPhotoProduct } from "@/utils/photo-product";
 import useCategories from "@/hooks/useCategories";
 import useModels from "@/hooks/useModels";
 import useProducts from "@/hooks/useProducts";
+import { Separator } from "@/components/ui/separator";
 
 type ProductFormProps = {
   product?: ProductResponse;
@@ -51,8 +51,8 @@ export default function ProductForm({ product, id }: ProductFormProps) {
     }
   });
 
-  const { categories } = useCategories();
-  const { models } = useModels();
+  const { categories } = useCategories({ id });
+  const { models } = useModels({ id });
 
   const {
     onSubmit,

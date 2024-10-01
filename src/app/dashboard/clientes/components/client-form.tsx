@@ -13,13 +13,13 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import {
   ClientFormValues,
   clientSchema
 } from "@/validations/client-validation";
 import { ClientResponse } from "@/models/client";
 import useClients from "@/hooks/useClients";
+import { Separator } from "@/components/ui/separator";
 
 type ClientFormProps = {
   client?: ClientResponse;
