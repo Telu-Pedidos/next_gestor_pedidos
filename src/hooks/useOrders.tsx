@@ -58,14 +58,12 @@ export default function useOrders({ id }: { id?: string }) {
   };
 
   const onSubmit = async (data: OrderFormValues) => {
-    const { includeTotal, ...newData } = data;
-
     startTransition(async () => {
       try {
         if (id) {
-          await handleEditOrder(newData);
+          await handleEditOrder(data);
         } else {
-          await handleCreateOrder(newData);
+          await handleCreateOrder(data);
         }
       } catch (error) {
         console.error("Erro:", error);
