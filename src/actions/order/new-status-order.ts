@@ -2,12 +2,13 @@
 
 import { NEW_STATUS_ORDER } from "@/functions/api";
 import apiError from "@/functions/api-error";
+import { Status } from "@/validations/order-validation";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 type newStatusParams = {
   id: string;
-  newStatus: string;
+  newStatus: Status;
 };
 
 export default async function newStatusOrder({

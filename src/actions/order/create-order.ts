@@ -23,7 +23,9 @@ export default async function createOrder(formData: OrderFormValues) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erro ao cadastrar o pedido");
+      throw new Error(
+        errorData.message || errorData.total || "Erro ao cadastrar o pedido"
+      );
     }
 
     revalidateTag("orders");

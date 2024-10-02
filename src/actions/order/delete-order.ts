@@ -27,5 +27,5 @@ export default async function deleteOrder(id: string) {
     return apiError(error);
   }
   revalidateTag("orders");
-  redirect("/dashboard/pedidos");
+  redirect("/dashboard");
 }

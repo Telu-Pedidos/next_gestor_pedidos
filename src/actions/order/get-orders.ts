@@ -3,10 +3,11 @@
 import { GET_ORDERS } from "@/functions/api";
 import apiError from "@/functions/api-error";
 import { OrderResponse } from "@/models/order";
+import { Status } from "@/validations/order-validation";
 import { cookies } from "next/headers";
 
 type getOrdersParams = {
-  status?: string;
+  status?: Status;
   startDate?: string;
   endDate?: string;
 };
@@ -15,7 +16,7 @@ export default async function getOrders({
   status,
   startDate,
   endDate
-}: getOrdersParams) {
+}: getOrdersParams = {}) {
   try {
     const { url } = GET_ORDERS({ status, startDate, endDate });
     const token = cookies().get("token")?.value;
