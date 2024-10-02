@@ -1,36 +1,35 @@
 "use client";
 
-import { useState } from "react";
-import { Status } from "./order-utils";
+import { OrderResponse } from "@/models/order";
 import OrderStatus from "./order-status";
+import useOrders from "@/hooks/useOrders";
+import { statuses } from "@/validations/order-validation";
 
-export default function OrderStatusManager() {
-  const [activeStatus, setActiveStatus] = useState<Status>("pending");
+export default function OrderStatusManager({
+  orders
+}: {
+  orders: OrderResponse[] | null;
+}) {
+  const { activeStatus, setActiveStatus } = useOrders({});
 
   return (
     <div className="flex flex-wrap gap-3">
-      <OrderStatus
-        status="pending"
-        activeStatus={activeStatus}
-        setActiveStatus={setActiveStatus}
-      />
-      <OrderStatus
-        status="accepted"
-        activeStatus={activeStatus}
-        setActiveStatus={setActiveStatus}
-      />
+      {statuses.map((orderStatus) => {
+        const activeOrdersData =
+          orders?.filter((order) => order.status === orderStatus) ?? [];
 
-      <OrderStatus
-        status="preparation"
-        activeStatus={activeStatus}
-        setActiveStatus={setActiveStatus}
-      />
+        const activerOrdersSize = activeOrdersData?.length ?? 0;
 
-      <OrderStatus
-        status="completed"
-        activeStatus={activeStatus}
-        setActiveStatus={setActiveStatus}
-      />
+        return (
+          <OrderStatus
+            key={orderStatus}
+            status={orderStatus}
+            activeStatus={activeStatus}
+            setActiveStatus={setActiveStatus}
+            orderSize={activerOrdersSize}
+          />
+        );
+      })}
     </div>
   );
 }

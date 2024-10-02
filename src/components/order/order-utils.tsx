@@ -1,3 +1,4 @@
+import { Status } from "@/validations/order-validation";
 import {
   AlarmClock,
   CircleCheckIcon,
@@ -5,60 +6,58 @@ import {
   ThumbsUpIcon
 } from "lucide-react";
 
-export type OrderStatusProps = {
+export type OrderUtilsProps = {
   status: Status;
-  activeStatus: Status;
+  activeStatus: Status | null;
   setActiveStatus: (status: Status) => void;
 };
 
-export type Status = "pending" | "accepted" | "preparation" | "completed";
-
 export const renderStatusIcon = (status: Status) => {
   switch (status) {
-    case "pending":
+    case "PENDING":
       return <CircleMinusIcon className="size-3 text-white" />;
-    case "accepted":
+    case "ACCEPTED":
       return <ThumbsUpIcon className="size-3 text-white" />;
-    case "preparation":
+    case "PREPARATION":
       return <AlarmClock className="size-3 text-white" />;
-    case "completed":
+    case "COMPLETED":
       return <CircleCheckIcon className="size-3 text-white" />;
   }
 };
 
 export const renderStatusText = (status: Status) => {
   switch (status) {
-    case "pending":
+    case "PENDING":
       return "Pendente";
-    case "accepted":
+    case "ACCEPTED":
       return "Aceito";
-    case "preparation":
+    case "PREPARATION":
       return "Preparo";
-    case "completed":
+    case "COMPLETED":
       return "Concluído";
   }
 };
 
 const createStatusStyles = (suffix: string = "") => ({
-  pending: {
+  PENDING: {
     border: `border-pending`,
     background: `bg-pending${suffix}`,
     iconBg: "bg-pending",
     text: "text-active"
   },
-  accepted: {
+  ACCEPTED: {
     border: `border-accepted`,
     background: `bg-accepted${suffix}`,
     iconBg: "bg-accepted",
     text: "text-white"
   },
-  preparation: {
+  PREPARATION: {
     border: `border-preparation`,
     background: `bg-preparation${suffix}`,
     iconBg: "bg-preparation",
     text: "text-white"
   },
-  completed: {
+  COMPLETED: {
     border: `border-completed`,
     background: `bg-completed${suffix}`,
     iconBg: "bg-completed",

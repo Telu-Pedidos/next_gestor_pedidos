@@ -1,15 +1,21 @@
 import { Button } from "../ui/button";
 import {
-  OrderStatusProps,
+  OrderUtilsProps,
   renderStatusIcon,
   renderStatusText,
   statusStyles
 } from "./order-utils";
+import Link from "next/link";
+
+type OrderStatusProps = OrderUtilsProps & {
+  orderSize: number;
+};
 
 export default function OrderStatus({
   status,
+  setActiveStatus,
   activeStatus,
-  setActiveStatus
+  orderSize
 }: OrderStatusProps) {
   const styles = statusStyles[status];
 
@@ -18,24 +24,32 @@ export default function OrderStatus({
   };
 
   return (
-    <Button
-      variant="link"
-      size="normal"
-      className={`flex items-center gap-2 rounded border p-1 ${styles.border} ${styles.background} ${
-        status === activeStatus
-          ? "opacity-100"
-          : "border-inherit bg-inherit opacity-60 transition-opacity hover:opacity-80"
-      }`}
-      onClick={handleStatusChange}
-    >
-      <span
-        className={`flex size-6 items-center justify-center rounded-full shadow-sm ${styles.iconBg}`}
+    <Link href={`?newStatus=${status}`} passHref>
+      <Button
+        variant="link"
+        size="normal"
+        className={`flex items-center gap-2 rounded border p-1 ${styles.border} ${styles.background} ${
+          status === activeStatus
+            ? "opacity-100"
+            : "border-inherit bg-inherit opacity-60 transition-opacity hover:opacity-80"
+        }`}
+        onClick={handleStatusChange}
       >
-        {renderStatusIcon(status)}
-      </span>
-      <span className="text-sm font-semibold text-order">
-        {renderStatusText(status)}
-      </span>
-    </Button>
+        <span
+          className={`flex size-6 items-center justify-center rounded-full shadow-sm ${styles.iconBg}`}
+        >
+          {renderStatusIcon(status)}
+        </span>
+        <div className="flex items-center gap-2 text-sm font-semibold text-order">
+          <p>{renderStatusText(status)}</p>
+          <span
+            className={`flex size-4 items-center justify-center rounded-full bg-destructive text-xs font-normal text-white ${styles.border} ${styles.background}`}
+          >
+            {orderSize}
+            <div className="border-inherit"></div>
+          </span>
+        </div>
+      </Button>
+    </Link>
   );
 }
