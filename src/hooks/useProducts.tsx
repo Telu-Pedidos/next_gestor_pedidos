@@ -2,12 +2,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { ProductFormValues } from "@/validations/product-validation";
 import { uploadImage } from "@/lib/cloudinary/upload-image";
 import toast from "react-hot-toast";
 import createProduct from "@/actions/product/create-product";
 import editProduct from "@/actions/product/edit-product";
+import getProducts from "@/actions/product/get-products";
+import { ProductResponse } from "@/models/product";
 
 export default function useProducts({ id }: { id?: string }) {
   const [isPending, startTransition] = useTransition();
@@ -15,6 +17,24 @@ export default function useProducts({ id }: { id?: string }) {
   const router = useRouter();
   const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const [products, setProducts] = useState<ProductResponse[]>();
+
+  const getAllProducts = () => {
+    startTransition(async () => {
+      try {
+        const result = await getProducts();
+        if (result.ok) {
+          setProducts(result.data);
+        } else {
+          console.error(result.error || "Erro ao buscar os produtos");
+        }
+      } catch (error) {
+        toast.error("Erro ao buscar os produtos.");
+        console.error(error);
+      }
+    });
+  };
 
   const onSubmit = async (data: ProductFormValues) => {
     startTransition(async () => {
@@ -91,12 +111,17 @@ export default function useProducts({ id }: { id?: string }) {
     }
   };
 
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
   return {
     onSubmit,
     selectedFile,
     handleImageChange,
     previewImage,
     handleCancel,
-    isPending
+    isPending,
+    products
   };
 }
