@@ -82,7 +82,7 @@ export default function ModelForm({ model, id }: ModelFormProps) {
                   >
                     <Image
                       src={
-                        model?.imageUrl || previewImage || IMAGE.PreviewImage
+                        previewImage || model?.imageUrl || IMAGE.PreviewImage
                       }
                       alt="Pré-visualização da imagem"
                       className="h-full w-full rounded object-contain"
