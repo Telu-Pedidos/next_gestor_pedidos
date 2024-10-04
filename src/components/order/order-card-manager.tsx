@@ -4,6 +4,7 @@ import OrderCard from "./order-card";
 import { OrderResponse } from "@/models/order";
 import useOrders from "@/hooks/useOrders";
 import { useSearchParams } from "next/navigation";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function OrderCardManager({
   orders
@@ -20,15 +21,17 @@ export default function OrderCardManager({
     : orders;
 
   return (
-    <ul className="flex flex-wrap gap-6">
-      {orderDataStatus.map((order) => (
-        <OrderCard
-          key={order.id}
-          setActiveStatus={setActiveStatus}
-          status={order.status}
-          order={order}
-        />
-      ))}
-    </ul>
+    <ScrollArea className="h-[calc(100vh-16rem)] w-full">
+      <ul className="flex flex-wrap gap-6">
+        {orderDataStatus.map((order) => (
+          <OrderCard
+            key={order.id}
+            setActiveStatus={setActiveStatus}
+            status={order.status}
+            order={order}
+          />
+        ))}
+      </ul>
+    </ScrollArea>
   );
 }
