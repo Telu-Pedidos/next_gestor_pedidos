@@ -27,24 +27,28 @@ type TablePageProps<T> = {
   table: TableTanStack<T>;
   columns: ColumnDef<T>[];
   transformIdToNameColumn: (id: string) => any;
+  showInput?: boolean;
 };
 
 export default function TablePage<T>({
   table,
   columns,
-  transformIdToNameColumn
+  transformIdToNameColumn,
+  showInput = true
 }: TablePageProps<T>) {
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <Input
-          placeholder="Busque por nome"
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        {showInput && (
+          <Input
+            placeholder="Busque por nome"
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
