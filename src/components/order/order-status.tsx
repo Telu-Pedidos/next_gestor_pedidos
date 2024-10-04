@@ -1,3 +1,4 @@
+import { useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
 import {
   OrderUtilsProps,
@@ -6,6 +7,7 @@ import {
   statusStyles
 } from "./order-utils";
 import Link from "next/link";
+import { Status } from "@/validations/order-validation";
 
 type OrderStatusProps = OrderUtilsProps & {
   orderSize: number;
@@ -17,6 +19,9 @@ export default function OrderStatus({
   activeStatus,
   orderSize
 }: OrderStatusProps) {
+  const searchParams = useSearchParams();
+  const selectedStatus = (searchParams.get("newStatus") as Status) || "";
+
   const styles = statusStyles[status];
 
   const handleStatusChange = () => {
@@ -29,7 +34,7 @@ export default function OrderStatus({
         variant="link"
         size="normal"
         className={`flex items-center gap-2 rounded border p-1 ${styles.border} ${styles.background} ${
-          status === activeStatus
+          selectedStatus && status === activeStatus
             ? "opacity-100"
             : "border-inherit bg-inherit opacity-60 transition-opacity hover:opacity-80"
         }`}
@@ -42,12 +47,14 @@ export default function OrderStatus({
         </span>
         <div className="flex items-center gap-2 text-sm font-semibold text-order">
           <p>{renderStatusText(status)}</p>
-          <span
-            className={`flex size-4 items-center justify-center rounded-full bg-destructive text-xs font-normal text-white ${styles.border} ${styles.background}`}
-          >
-            {orderSize}
-            <div className="border-inherit"></div>
-          </span>
+          {orderSize > 0 && (
+            <span
+              className={`flex size-4 items-center justify-center rounded-full bg-destructive text-xs font-normal text-white ${styles.border} ${styles.background}`}
+            >
+              {orderSize}
+              <div className="border-inherit"></div>
+            </span>
+          )}
         </div>
       </Button>
     </Link>
