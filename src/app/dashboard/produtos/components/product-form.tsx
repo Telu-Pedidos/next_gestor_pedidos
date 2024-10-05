@@ -143,7 +143,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
               name="price"
               render={({ field }) => (
                 <FormItem className="space-y-1">
-                  <FormLabel className="text-[#595548]">Preço mínimo</FormLabel>
+                  <FormLabel className="text-[#595548]">Preço</FormLabel>
                   <FormControl>
                     <NumericFormat
                       allowLeadingZeros={false}

@@ -58,7 +58,9 @@ export const productsColumns: ColumnDef<ProductResponse>[] = [
             alt={product.name}
             className="h-10 w-10 rounded-full object-cover"
           />
-          <span className="text-sm font-medium text-order">{product.name}</span>
+          <span className="max-w-96 truncate text-sm font-medium text-order">
+            {product.name}
+          </span>
         </div>
       );
     }
@@ -90,7 +92,7 @@ export const productsColumns: ColumnDef<ProductResponse>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Preço mínimo
+          Preço
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
       );

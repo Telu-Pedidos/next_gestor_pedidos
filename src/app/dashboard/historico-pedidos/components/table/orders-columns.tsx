@@ -67,7 +67,7 @@ export const ordersColumns: ColumnDef<OrderResponse>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Nome
+          Nome do Cliente
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
       );
