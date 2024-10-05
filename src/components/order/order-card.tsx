@@ -18,7 +18,7 @@ import { renderStatusText, statusStylesCard } from "./order-utils";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Status, statuses } from "@/validations/order-validation";
 import { OrderResponse } from "@/models/order";
-import { formatNumberToHex } from "@/utils/functions";
+import { formatNumberToHex, transformNameDelivery } from "@/utils/functions";
 import { formatDateToDays } from "@/helpers/date";
 import { formatPrice } from "@/utils/format-price";
 import useOrders from "@/hooks/useOrders";
@@ -82,7 +82,7 @@ export default function OrderCard({
             <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
               <LockIcon className="size-[0.875rem]" />
               <p className="text-xs font-medium capitalize">
-                {order.delivery.toLocaleLowerCase()}
+                {transformNameDelivery(order.delivery)}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-1 text-[#605E48]">

@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger
 } from "../ui/dropdown-menu";
 import { Status, statuses } from "@/validations/order-validation";
-import { formatNumberToHex } from "@/utils/functions";
+import { formatNumberToHex, transformNameDelivery } from "@/utils/functions";
 import { formatDateNew, formatDateToDays } from "@/helpers/date";
 import OrderCardTable from "./order-card-table";
 import { formatPhoneNumber, regexPhoneNumber } from "@/helpers/phone";
@@ -99,7 +99,7 @@ export default function OrderDetais({
           <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
             <LockIcon className="size-[0.875rem]" />
             <p className="text-xs font-medium capitalize">
-              {order.delivery.toLocaleLowerCase()}
+              {transformNameDelivery(order.delivery)}
             </p>
           </div>
         </div>

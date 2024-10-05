@@ -33,6 +33,7 @@ import useClients from "@/hooks/useClients";
 import useProducts from "@/hooks/useProducts";
 import { Textarea } from "@/components/ui/textarea";
 import OrderSelectProduct from "./order-select-product";
+import { transformNameDelivery } from "@/utils/functions";
 
 type OrderFormProps = {
   order?: OrderResponse;
@@ -159,7 +160,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
                     <SelectContent>
                       {deliveryuses.map((delivery) => (
                         <SelectItem value={delivery} key={delivery}>
-                          {delivery === "WITHDRAWALS" ? "Retirada" : "Shopee"}
+                          {transformNameDelivery(delivery)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -242,7 +243,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
                   <FormLabel className="text-[#595548]">Observação</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Type your message here."
+                      placeholder="Digite sua observação aqui."
                       className="min-h-32 resize-none"
                       {...field}
                     />
