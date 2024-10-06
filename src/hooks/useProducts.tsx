@@ -4,7 +4,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { ProductFormValues } from "@/validations/product-validation";
-import { uploadImage } from "@/lib/cloudinary/upload-image";
 import toast from "react-hot-toast";
 import createProduct from "@/actions/product/create-product";
 import editProduct from "@/actions/product/edit-product";
@@ -42,11 +41,23 @@ export default function useProducts({ id }: { id?: string }) {
         if (data.file) {
           const formData = new FormData();
           formData.append("upload-image", data.file);
-          const uploadResult = await uploadImage(formData);
+
+          const uploadResponse = await fetch("/api/upload-image", {
+            method: "POST",
+            body: formData
+          });
+
+          if (!uploadResponse.ok) {
+            toast.error("Erro ao fazer upload da imagem.");
+            return;
+          }
+
+          const uploadResult = await uploadResponse.json();
+
           if (uploadResult?.secure_url) {
             data.imageUrl = uploadResult.secure_url;
           } else {
-            toast.error("Erro ao fazer upload da imagem.");
+            toast.error("Erro ao obter a URL da imagem.");
             return;
           }
         }
@@ -58,6 +69,7 @@ export default function useProducts({ id }: { id?: string }) {
         }
       } catch (error) {
         console.error("Erro:", error);
+        toast.error("Ocorreu um erro ao salvar o produto.");
       }
     });
   };
