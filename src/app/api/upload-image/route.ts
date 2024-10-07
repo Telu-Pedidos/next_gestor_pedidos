@@ -5,10 +5,9 @@ import streamifier from "streamifier";
 import { UploadApiResponse } from "cloudinary";
 
 export async function POST(req: NextRequest) {
-  console.log("Request:", req);
   try {
     const formData = await req.formData();
-    const file = formData.get("upload-image") as Blob;
+    const file = formData.get("file") as Blob;
 
     if (!file) {
       return NextResponse.json(
@@ -35,10 +34,7 @@ export async function POST(req: NextRequest) {
       streamifier.createReadStream(buffer).pipe(uploadStream);
     });
 
-    return NextResponse.json(
-      { secure_url: result.secure_url },
-      { status: 200 }
-    );
+    return NextResponse.json({ url: result.secure_url }, { status: 200 });
   } catch (error: any) {
     console.error("Erro no upload:", error);
     return NextResponse.json(

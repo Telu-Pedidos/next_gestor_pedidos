@@ -35,41 +35,39 @@ export default function useProducts({ id }: { id?: string }) {
     });
   };
 
-  const onSubmit = async (data: ProductFormValues) => {
+  const onSubmit = async (productData: ProductFormValues) => {
     startTransition(async () => {
       try {
-        if (data.file) {
+        if (productData.file) {
           const formData = new FormData();
-          formData.append("upload-image", data.file);
+          formData.append("file", productData.file);
 
-          const uploadResponse = await fetch("/api/upload-image", {
+          const response = await fetch("/api/upload-image", {
             method: "POST",
             body: formData
           });
 
-          if (!uploadResponse.ok) {
-            toast.error("Erro ao fazer upload da imagem.");
-            return;
+          if (!response.ok) {
+            throw new Error("Erro ao fazer upload do arquivo");
           }
 
-          const uploadResult = await uploadResponse.json();
+          const imageData = await response.json();
+          const newImageUrl = imageData.url;
+          if (!newImageUrl) {
+            throw new Error("Erro ao obter a URL da imagem");
+          }
 
-          if (uploadResult?.secure_url) {
-            data.imageUrl = uploadResult.secure_url;
+          productData.imageUrl = newImageUrl;
+
+          if (id) {
+            await handleEditProduct(productData);
           } else {
-            toast.error("Erro ao obter a URL da imagem.");
-            return;
+            await handleCreateProduct(productData);
           }
-        }
-
-        if (id) {
-          await handleEditProduct(data);
-        } else {
-          await handleCreateProduct(data);
         }
       } catch (error) {
         console.error("Erro:", error);
-        toast.error("Ocorreu um erro ao salvar o produto.");
+        toast.error("Ocorreu um erro ao salvar o modelo.");
       }
     });
   };
