@@ -15,6 +15,7 @@ import editOrder from "@/actions/order/edit-order";
 import newStatusOrder from "@/actions/order/new-status-order";
 import { OrderFormValues, Status } from "@/validations/order-validation";
 import { DateRange } from "react-day-picker";
+import finishOrder from "@/actions/order/finish-order";
 
 interface OrderContextProps {
   activeStatus: Status | null;
@@ -22,6 +23,7 @@ interface OrderContextProps {
     SetStateAction<"PENDING" | "ACCEPTED" | "PREPARATION" | "COMPLETED" | null>
   >;
   handleNewStatusOrder: (id: string, newStatus: Status) => Promise<void>;
+  handleFinishOrder: (id: string) => Promise<void>;
   onSubmit: (data: OrderFormValues, id?: string) => Promise<void>;
   isPending: boolean;
   handleCancel: () => void;
@@ -51,6 +53,16 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error) {
       console.error("Erro no servidor", error);
       toast.error("Ocorreu um erro ao tentar atualizar o status.");
+    }
+  };
+
+  const handleFinishOrder = async (id: string) => {
+    try {
+      await finishOrder(id);
+      toast.success("Pedido finalizado com sucesso.");
+    } catch (error) {
+      console.error("Erro no servidor", error);
+      toast.error("Ocorreu um erro ao tentar finalizar o pedido.");
     }
   };
 
@@ -107,6 +119,7 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         activeStatus,
         setActiveStatus,
         handleNewStatusOrder,
+        handleFinishOrder,
         onSubmit,
         isPending,
         handleCancel,

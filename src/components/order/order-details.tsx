@@ -32,13 +32,15 @@ type OrderDetaisProps = {
   status: Status;
   modifyStatusOrder?: (id: string, newStatus: Status) => void;
   canMoveToStatus?: (currentStatus: Status, targetStatus: string) => boolean;
+  finishStatusOrder?: (id: string) => void;
 };
 
 export default function OrderDetais({
   order,
   status,
   modifyStatusOrder,
-  canMoveToStatus
+  canMoveToStatus,
+  finishStatusOrder
 }: OrderDetaisProps) {
   const styles = statusStylesCard[status as Status];
 
@@ -161,12 +163,9 @@ export default function OrderDetais({
                 Começar o preparo
               </Button>
             ) : (
-              status === "PREPARATION" && (
-                <Button
-                  onClick={() =>
-                    modifyStatusOrder(String(order.id), "COMPLETED")
-                  }
-                >
+              status === "PREPARATION" &&
+              finishStatusOrder && (
+                <Button onClick={() => finishStatusOrder(String(order.id))}>
                   Concluir pedido
                 </Button>
               )

@@ -40,11 +40,22 @@ export default function OrderCard({
 }: OrderCardProps) {
   const styles = statusStylesCard[status as Status];
 
-  const { handleNewStatusOrder } = useOrders({});
+  const { handleNewStatusOrder, handleFinishOrder } = useOrders({});
 
   const modifyStatusOrder = (id: string, newStatus: Status) => {
     setActiveStatus(newStatus);
+
+    if (newStatus === "COMPLETED") {
+      handleFinishOrder(id);
+      return;
+    }
+
     handleNewStatusOrder(id, newStatus);
+  };
+
+  const finishStatusOrder = (id: string) => {
+    setActiveStatus("COMPLETED");
+    handleFinishOrder(id);
   };
 
   const canMoveToStatus = (currentStatus: Status, targetStatus: string) => {
@@ -110,6 +121,7 @@ export default function OrderCard({
         status={status}
         modifyStatusOrder={modifyStatusOrder}
         canMoveToStatus={canMoveToStatus}
+        finishStatusOrder={finishStatusOrder}
       />
     </Dialog>
   );
