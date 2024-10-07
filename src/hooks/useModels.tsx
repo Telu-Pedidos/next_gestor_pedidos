@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
+import { uploadImage } from "@/actions/imagekit/upload-image";
 import createModel from "@/actions/model/create-model";
 import editModel from "@/actions/model/edit-model";
 import getModels from "@/actions/model/get-models";
@@ -41,17 +42,10 @@ export default function useModels({ id }: { id?: string }) {
           const formData = new FormData();
           formData.append("file", modelData.file);
 
-          const response = await fetch("/api/upload-image", {
-            method: "POST",
-            body: formData
-          });
+          const imageData = await uploadImage(formData);
 
-          if (!response.ok) {
-            throw new Error("Erro ao fazer upload do arquivo");
-          }
-
-          const imageData = await response.json();
           const newImageUrl = imageData.url;
+
           if (!newImageUrl) {
             throw new Error("Erro ao obter a URL da imagem");
           }

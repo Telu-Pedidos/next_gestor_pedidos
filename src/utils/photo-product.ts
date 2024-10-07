@@ -1,5 +1,5 @@
 const productDefaultUrl =
-  "https://res.cloudinary.com/dwhm5cotm/image/upload/v1727620986/br-11134207-7r98o-ltj7hr73hull0e_resize_w900_nl_1_fbmvmb.jpg";
+  "https://ik.imagekit.io/hijykdr24/telupedidos/product-default?updatedAt=1728346533526";
 
 export function transformPhotoProduct(imageUrl: string | undefined) {
   if (imageUrl === undefined) return productDefaultUrl;

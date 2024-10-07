@@ -9,6 +9,7 @@ import createProduct from "@/actions/product/create-product";
 import editProduct from "@/actions/product/edit-product";
 import getProducts from "@/actions/product/get-products";
 import { ProductResponse } from "@/models/product";
+import { uploadImage } from "@/actions/imagekit/upload-image";
 
 export default function useProducts({ id }: { id?: string }) {
   const [isPending, startTransition] = useTransition();
@@ -35,34 +36,27 @@ export default function useProducts({ id }: { id?: string }) {
     });
   };
 
-  const onSubmit = async (productData: ProductFormValues) => {
+  const onSubmit = async (modelData: ProductFormValues) => {
     startTransition(async () => {
       try {
-        if (productData.file) {
+        if (modelData.file) {
           const formData = new FormData();
-          formData.append("file", productData.file);
+          formData.append("file", modelData.file);
 
-          const response = await fetch("/api/upload-image", {
-            method: "POST",
-            body: formData
-          });
+          const imageData = await uploadImage(formData);
 
-          if (!response.ok) {
-            throw new Error("Erro ao fazer upload do arquivo");
-          }
-
-          const imageData = await response.json();
           const newImageUrl = imageData.url;
+
           if (!newImageUrl) {
             throw new Error("Erro ao obter a URL da imagem");
           }
 
-          productData.imageUrl = newImageUrl;
+          modelData.imageUrl = newImageUrl;
 
           if (id) {
-            await handleEditProduct(productData);
+            await handleEditProduct(modelData);
           } else {
-            await handleCreateProduct(productData);
+            await handleCreateProduct(modelData);
           }
         }
       } catch (error) {

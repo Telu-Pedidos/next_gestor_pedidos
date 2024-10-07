@@ -207,9 +207,3 @@ export function NEW_STATUS_ORDER({
     url: `${API_URL}/orders/${id}/status?newStatus=${newStatus}`
   };
 }
-
-export function UPLOAD_IMAGE() {
-  return {
-    url: API_URL + "/cloudinary/upload-image"
-  };
-}
