@@ -9,6 +9,7 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { ProductResponse } from "@/models/product";
 
 type OrderSelectProductProps = {
@@ -40,39 +41,41 @@ export default function OrderSelectProduct({
           </DialogTrigger>
 
           <DialogContent className="w-full max-w-4xl">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-              {products?.map((product) => {
-                const checkboxId = `checkedProduct-${product.id}`;
+            <ScrollArea className="h-[calc(100vh-16rem)] w-full">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                {products
+                  ?.filter((product) => product.active)
+                  .map((product) => {
+                    const checkboxId = `checkedProduct-${product.id}`;
 
-                return (
-                  <FormControl key={product.id}>
-                    <div className="flex items-center space-x-2">
-                      <FormLabel htmlFor={checkboxId}>
-                        <Checkbox
-                          id={checkboxId}
-                          checked={field.value?.includes(product.id)}
-                          onCheckedChange={(checked) => {
-                            return checked
-                              ? field.onChange([
-                                  ...(field.value || []),
-                                  product.id
-                                ])
-                              : field.onChange(
-                                  field.value?.filter(
-                                    (value: any) => value !== product.id
-                                  )
-                                );
-                          }}
-                        />
-                        <ProductCard product={product} />
-                      </FormLabel>
-                    </div>
-                  </FormControl>
-                );
-              })}
-            </div>
-
-            {/* Parágrafo mostrando a quantidade de produtos selecionados */}
+                    return (
+                      <FormControl key={product.id}>
+                        <div className="flex items-center space-x-2">
+                          <FormLabel htmlFor={checkboxId}>
+                            <Checkbox
+                              id={checkboxId}
+                              checked={field.value?.includes(product.id)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([
+                                      ...(field.value || []),
+                                      product.id
+                                    ])
+                                  : field.onChange(
+                                      field.value?.filter(
+                                        (value: any) => value !== product.id
+                                      )
+                                    );
+                              }}
+                            />
+                            <ProductCard product={product} />
+                          </FormLabel>
+                        </div>
+                      </FormControl>
+                    );
+                  })}
+              </div>
+            </ScrollArea>
             <p className="mt-4 text-sm text-gray-600">
               {selectedCount} produto{selectedCount !== 1 ? "s" : ""}{" "}
               selecionado{selectedCount !== 1 ? "s" : ""}
