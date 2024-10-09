@@ -2,9 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import verifyToken from "./functions/verify-token";
 
 export async function middleware(request: NextRequest) {
-  const response = NextResponse.next();
-
   const token = request.cookies.get("token")?.value;
+
   const isValid = await verifyToken(token || "");
 
   if (!isValid && request.nextUrl.pathname !== "/login") {
@@ -15,7 +14,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
