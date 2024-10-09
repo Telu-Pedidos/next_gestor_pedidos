@@ -39,12 +39,11 @@ export default function useProducts({ id }: { id?: string }) {
   const onSubmit = async (modelData: ProductFormValues) => {
     startTransition(async () => {
       try {
+        const formData = new FormData();
+
         if (modelData.file) {
-          const formData = new FormData();
           formData.append("file", modelData.file);
-
           const imageData = await uploadImage(formData);
-
           const newImageUrl = imageData.url;
 
           if (!newImageUrl) {
@@ -52,12 +51,12 @@ export default function useProducts({ id }: { id?: string }) {
           }
 
           modelData.imageUrl = newImageUrl;
+        }
 
-          if (id) {
-            await handleEditProduct(modelData);
-          } else {
-            await handleCreateProduct(modelData);
-          }
+        if (id) {
+          await handleEditProduct(modelData);
+        } else {
+          await handleCreateProduct(modelData);
         }
       } catch (error) {
         console.error("Erro:", error);

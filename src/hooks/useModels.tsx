@@ -38,8 +38,8 @@ export default function useModels({ id }: { id?: string }) {
   const onSubmit = async (modelData: ModelFormValues) => {
     startTransition(async () => {
       try {
+        const formData = new FormData();
         if (modelData.file) {
-          const formData = new FormData();
           formData.append("file", modelData.file);
 
           const imageData = await uploadImage(formData);
@@ -51,12 +51,12 @@ export default function useModels({ id }: { id?: string }) {
           }
 
           modelData.imageUrl = newImageUrl;
+        }
 
-          if (id) {
-            await handleEditModel(modelData);
-          } else {
-            await handleCreateModel(modelData);
-          }
+        if (id) {
+          await handleEditModel(modelData);
+        } else {
+          await handleCreateModel(modelData);
         }
       } catch (error) {
         console.error("Erro:", error);
