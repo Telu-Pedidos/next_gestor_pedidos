@@ -1,55 +1,78 @@
 "use client";
 
+import { formatPrice } from "@/utils/format-price";
 import { OrderResponse } from "@/models/order";
-import { OrderDateRange } from "./order-date-range";
+import { startOfDay, isBefore, isAfter, isEqual, addDays } from "date-fns";
+import { useMemo, useState } from "react";
+import { CalendarDatePicker } from "@/components/calendar-date-picker";
 import OrdersTable from "./table/orders-table";
-import useOrders from "@/hooks/useOrders";
-import { startOfDay, isBefore, isAfter, isEqual } from "date-fns";
-import { useMemo } from "react";
 
 export default function OrderHistoryManager({
   data
 }: {
   data: OrderResponse[];
 }) {
-  const { date } = useOrders({});
+  const [selectedDateRange, setSelectedDateRange] = useState({
+    from: new Date(new Date()),
+    to: addDays(new Date(), 30)
+  });
 
   const filterOrderDate = useMemo(() => {
-    console.log("Data:", data);
-    console.log("Date Range:", date);
-
     return (
       data.filter((order) => {
-        const orderStart = startOfDay(new Date(order.startAt));
-        const orderEnd = startOfDay(new Date(order.endAt));
+        const orderCreated = startOfDay(new Date(order.createdAt));
+        const filterStart = startOfDay(new Date(selectedDateRange.from));
+        const filterEnd = startOfDay(new Date(selectedDateRange.to));
 
-        console.log("Order Start:", orderStart);
-        console.log("Order End:", orderEnd);
-
-        if (date?.from) {
-          const filterStart = startOfDay(new Date(date.from));
-
-          if (!date.to) {
-            return isEqual(orderStart, filterStart);
-          }
-
-          const filterEnd = startOfDay(new Date(date.to));
-          return (
-            (isEqual(orderStart, filterStart) ||
-              isAfter(orderStart, filterStart)) &&
-            (isEqual(orderEnd, filterEnd) || isBefore(orderEnd, filterEnd))
-          );
-        }
-
-        return true;
+        return (
+          (isAfter(orderCreated, filterStart) &&
+            isBefore(orderCreated, filterEnd)) ||
+          isEqual(orderCreated, filterStart) ||
+          isEqual(orderCreated, filterEnd)
+        );
       }) || data
     );
-  }, [data, date]);
+  }, [data, selectedDateRange]);
+
+  const totalSales = useMemo(() => {
+    return (
+      filterOrderDate?.reduce(
+        (sum, order) => sum + (order.total ? order?.total : 0),
+        0
+      ) || 0
+    );
+  }, [filterOrderDate]);
 
   return (
     <>
-      <OrderDateRange />
-      {data && <OrdersTable orders={filterOrderDate} />}
+      <div className="mb-2 flex flex-wrap justify-end gap-8">
+        <div className="space-y-1">
+          <h2 className="text-sm font-medium text-[#666358]">
+            Venda total (período)
+          </h2>
+          <p className="text-sm font-semibold text-title">
+            {formatPrice(totalSales)}
+          </p>
+        </div>
+        <div className="space-y-1">
+          <h2 className="text-sm font-medium text-[#666358]">Nº de pedidos</h2>
+          <p className="text-sm font-semibold text-title">
+            {filterOrderDate?.length ?? 0}
+          </p>
+        </div>
+        <div className="space-y-1">
+          <h2 className="text-sm font-medium text-[#666358]">Ticket médio</h2>
+          <p className="text-sm font-semibold text-title">
+            {formatPrice(totalSales)}{" "}
+          </p>
+        </div>
+      </div>
+
+      <CalendarDatePicker
+        date={selectedDateRange}
+        onDateSelect={setSelectedDateRange}
+      />
+      {filterOrderDate && <OrdersTable orders={filterOrderDate} />}
     </>
   );
 }
