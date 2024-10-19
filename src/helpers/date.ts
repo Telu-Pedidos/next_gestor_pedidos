@@ -1,12 +1,15 @@
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { toZonedTime } from "date-fns-tz";
+
+const timeZone = "America/Sao_Paulo";
 
 export function formatDateToDays(dateString: string) {
   if (typeof dateString !== "string" || dateString.trim() === "") {
     return "";
   }
 
-  const date = new Date(dateString);
+  const date = toZonedTime(new Date(dateString), timeZone);
 
   const distance = formatDistanceToNow(date, {
     locale: ptBR,
@@ -21,7 +24,7 @@ export function formatDateNew(dateString: string): string {
     return "-";
   }
 
-  const date = parseISO(dateString);
+  const date = toZonedTime(parseISO(dateString), timeZone);
 
   if (isNaN(date.getTime())) {
     return "-";

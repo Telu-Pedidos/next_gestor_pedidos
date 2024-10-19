@@ -18,20 +18,8 @@ const DeliveryEnum = z.enum(deliveryuses);
 export const orderSchema = z.object({
   status: StatusEnum,
   total: z.number().min(0, "O total deve ser maior ou igual a 0").nullable(),
-  startAt: z
-    .string()
-    .transform((val) => new Date(val))
-    .refine((date) => !isNaN(date.getTime()), {
-      message: "Data de início é obrigatória e deve ser uma data válida"
-    })
-    .transform((date) => date.toISOString().slice(0, 19)),
-  endAt: z
-    .string()
-    .transform((val) => new Date(val))
-    .refine((date) => !isNaN(date.getTime()), {
-      message: "Data de término é obrigatória e deve ser uma data válida"
-    })
-    .transform((date) => date.toISOString().slice(0, 19)),
+  startAt: z.string().transform((val) => new Date(val).toISOString()),
+  endAt: z.string().transform((val) => new Date(val).toISOString()),
   delivery: DeliveryEnum,
   observation: z
     .string()
