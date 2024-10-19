@@ -108,7 +108,7 @@ export default function OrderCard({
           </CardContent>
           <CardFooter className="mt-9 flex flex-wrap justify-between gap-2 p-0">
             <span className="text-xs text-[#9F947F]">
-              Recebido há {formatDateToDays(order.createdAt)}
+              Recebido há {formatDateToDays(order.startAt)}
             </span>
             <p className="text-base font-semibold">
               {formatPrice(order.total || 0)}

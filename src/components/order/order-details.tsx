@@ -52,7 +52,7 @@ export default function OrderDetais({
             {formatNumberToHex(order.id)}
           </p>
           <span className="text-[0.625rem] text-[#666358]">
-            Recebido há {formatDateToDays(order.createdAt)}
+            Recebido há {formatDateToDays(order.startAt)}
           </span>
         </div>
 
@@ -133,8 +133,7 @@ export default function OrderDetais({
           <div className="flex flex-wrap items-center gap-1 pr-10 text-[#605E48]">
             <CalendarIcon className="size-[0.875rem]" />
             <p className="text-xs font-medium">
-              {formatDateNew(order.createdAt)} -{" "}
-              {formatDateToDays(order.createdAt)}
+              {formatDateNew(order.startAt)} - {formatDateToDays(order.startAt)}
             </p>
           </div>
         </div>

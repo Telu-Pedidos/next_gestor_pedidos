@@ -2,7 +2,7 @@ import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
 
-const timeZone = "America/Sao_Paulo";
+export const timeZone = "America/Sao_Paulo";
 
 export function formatDateToDays(dateString: string) {
   if (typeof dateString !== "string" || dateString.trim() === "") {

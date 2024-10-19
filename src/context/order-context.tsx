@@ -7,14 +7,12 @@ import {
   useState,
   useTransition
 } from "react";
-import { addDays, startOfDay } from "date-fns";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import createOrder from "@/actions/order/create-order";
 import editOrder from "@/actions/order/edit-order";
 import newStatusOrder from "@/actions/order/new-status-order";
 import { OrderFormValues, Status } from "@/validations/order-validation";
-import { DateRange } from "react-day-picker";
 import finishOrder from "@/actions/order/finish-order";
 
 interface OrderContextProps {
@@ -27,8 +25,6 @@ interface OrderContextProps {
   onSubmit: (data: OrderFormValues, id?: string) => Promise<void>;
   isPending: boolean;
   handleCancel: () => void;
-  date: DateRange | undefined;
-  setDate: (date: DateRange | undefined) => void;
 }
 
 export const OrderContext = createContext<OrderContextProps | undefined>(
@@ -39,10 +35,6 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [activeStatus, setActiveStatus] = useState<Status | null>(null);
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: startOfDay(new Date()),
-    to: startOfDay(addDays(new Date(), 30))
-  });
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -122,9 +114,7 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         handleFinishOrder,
         onSubmit,
         isPending,
-        handleCancel,
-        date,
-        setDate
+        handleCancel
       }}
     >
       {children}

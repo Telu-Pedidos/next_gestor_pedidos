@@ -670,7 +670,7 @@ export const CalendarDatePicker = React.forwardRef<
                     )}
                   </div>
                   <div className="flex">
-                    {/* <Calendar
+                    <Calendar
                       locale={ptBR}
                       mode="range"
                       defaultMonth={monthFrom}
@@ -681,16 +681,6 @@ export const CalendarDatePicker = React.forwardRef<
                       numberOfMonths={numberOfMonths}
                       showOutsideDays={false}
                       className={className}
-                    /> */}
-
-                    <Calendar
-                      initialFocus
-                      mode="range"
-                      defaultMonth={date?.from}
-                      selected={date}
-                      onSelect={handleDateSelect}
-                      numberOfMonths={2}
-                      locale={ptBR}
                     />
                   </div>
                 </div>

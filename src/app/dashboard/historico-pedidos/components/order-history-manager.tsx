@@ -2,7 +2,14 @@
 
 import { formatPrice } from "@/utils/format-price";
 import { OrderResponse } from "@/models/order";
-import { startOfDay, isBefore, isAfter, isEqual, addDays } from "date-fns";
+import {
+  startOfDay,
+  isBefore,
+  isAfter,
+  isEqual,
+  startOfYear,
+  endOfYear
+} from "date-fns";
 import { useMemo, useState } from "react";
 import { CalendarDatePicker } from "@/components/calendar-date-picker";
 import OrdersTable from "./table/orders-table";
@@ -12,15 +19,17 @@ export default function OrderHistoryManager({
 }: {
   data: OrderResponse[];
 }) {
+  const today = new Date();
+
   const [selectedDateRange, setSelectedDateRange] = useState({
-    from: new Date(new Date()),
-    to: addDays(new Date(), 30)
+    from: startOfYear(today),
+    to: endOfYear(today)
   });
 
   const filterOrderDate = useMemo(() => {
     return (
       data.filter((order) => {
-        const orderCreated = startOfDay(new Date(order.createdAt));
+        const orderCreated = startOfDay(new Date(order.startAt));
         const filterStart = startOfDay(new Date(selectedDateRange.from));
         const filterEnd = startOfDay(new Date(selectedDateRange.to));
 
