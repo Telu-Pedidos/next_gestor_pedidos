@@ -50,7 +50,10 @@ export const productsColumns: ColumnDef<ProductResponse>[] = [
       const product = row.original;
 
       return (
-        <div className="flex flex-wrap items-center gap-3">
+        <div
+          className="flex cursor-default flex-wrap items-center gap-3"
+          title={product.name}
+        >
           <Image
             src={transformPhotoProduct(product.imageUrl)}
             width={40}
@@ -58,7 +61,7 @@ export const productsColumns: ColumnDef<ProductResponse>[] = [
             alt={product.name}
             className="h-10 w-10 rounded-full object-cover"
           />
-          <span className="max-w-96 truncate text-sm font-medium text-order">
+          <span className="max-w-xs truncate text-sm font-medium text-order">
             {product.name}
           </span>
         </div>
@@ -81,7 +84,34 @@ export const productsColumns: ColumnDef<ProductResponse>[] = [
     cell: ({ row }) => {
       const product = row.original;
 
-      return <div>{product.category ? product.category.name : "-"}</div>;
+      return (
+        <div className="max-w-36 truncate">
+          {product.category ? product.category.name : "-"}
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: "model",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Modelo
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const product = row.original;
+
+      return (
+        <div className="truncat max-w-60 truncate font-medium text-active">
+          {product.model ? product.model.name : "-"}
+        </div>
+      );
     }
   },
   {

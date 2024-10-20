@@ -11,6 +11,8 @@ const transformIdToNameColumn = (id: string) => {
       return "Nome";
     case "category":
       return "Categoria";
+    case "model":
+      return "Modelo";
     case "price":
       return "Preço";
     case "active":

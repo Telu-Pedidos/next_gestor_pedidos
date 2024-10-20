@@ -14,7 +14,7 @@ export default async function ProdutosPage() {
 
   return (
     <main>
-      <div className="max-w-6xl rounded-md bg-card px-5 py-4">
+      <div className="max-w-7xl rounded-md bg-card px-5 py-4">
         <div className="mb-3 flex items-center justify-between">
           <h1 className="text-2xl font-medium text-title">Produtos</h1>
         </div>
