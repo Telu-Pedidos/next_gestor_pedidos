@@ -34,6 +34,7 @@ import useProducts from "@/hooks/useProducts";
 import { Textarea } from "@/components/ui/textarea";
 import OrderSelectProduct from "./order-select-product";
 import { transformNameDelivery } from "@/utils/functions";
+import { useState } from "react";
 
 type OrderFormProps = {
   order?: OrderResponse;
@@ -58,6 +59,20 @@ export default function OrderForm({ order, id }: OrderFormProps) {
   const { clients } = useClients({ id });
   const { products } = useProducts({ id });
   const { onSubmit, isPending, handleCancel } = useOrders({ id });
+
+  const [total, setTotal] = useState(order?.total || 0);
+
+  const calculateTotal = (selectedProductIds: number[]) => {
+    const selectedProducts = products?.filter((product) =>
+      selectedProductIds.includes(Number(product.id))
+    );
+    const newTotal =
+      selectedProducts?.reduce((acc, product) => acc + product.price, 0) || 0;
+    setTotal(newTotal);
+    form.setValue("total", newTotal);
+  };
+
+  const selectedProductIds = form.watch("productIds");
 
   return (
     <>
@@ -109,6 +124,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
                   <FormLabel className="text-[#595548]">Total</FormLabel>
                   <FormControl>
                     <NumericFormat
+                      disabled={selectedProductIds?.length ? true : false}
                       allowLeadingZeros={false}
                       allowNegative={false}
                       decimalScale={2}
@@ -118,11 +134,11 @@ export default function OrderForm({ order, id }: OrderFormProps) {
                       prefix="R$ "
                       thousandSeparator="."
                       isAllowed={(values) => values.value.length <= 9}
-                      className="flex h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm"
+                      className="flex h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
                       onValueChange={(values) =>
                         field.onChange(values.floatValue)
                       }
-                      value={field.value}
+                      value={total}
                     />
                   </FormControl>
                   <FormMessage />
@@ -136,7 +152,12 @@ export default function OrderForm({ order, id }: OrderFormProps) {
               control={form.control}
               name="productIds"
               render={({ field }) => (
-                <OrderSelectProduct products={products} field={field} />
+                <OrderSelectProduct
+                  products={products}
+                  field={field}
+                  calculateTotal={calculateTotal}
+                  resetTotal={() => setTotal(0)}
+                />
               )}
             />
           </div>
