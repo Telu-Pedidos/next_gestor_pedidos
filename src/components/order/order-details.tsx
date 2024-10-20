@@ -1,15 +1,18 @@
 "use client";
 
 import {
-  BanknoteIcon,
   CalendarIcon,
   ChevronDownIcon,
   LockIcon,
   UserIcon
 } from "lucide-react";
 import { renderStatusText, statusStylesCard } from "./order-utils";
-import { DialogClose, DialogContent, DialogHeader } from "../ui/dialog";
-import { Button } from "../ui/button";
+import {
+  DialogClose,
+  DialogContent,
+  DialogHeader
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { ICON } from "@/icons";
 import {
   DropdownMenu,
@@ -17,15 +20,17 @@ import {
   DropdownMenuContent,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { Status, statuses } from "@/validations/order-validation";
 import { formatNumberToHex, transformNameDelivery } from "@/utils/functions";
-import { formatDateNew, formatDateToDays } from "@/helpers/date";
+import { formatDateNew, formatDateToDays, isSameDate } from "@/helpers/date";
 import OrderCardTable from "./order-card-table";
 import { formatPhoneNumber, regexPhoneNumber } from "@/helpers/phone";
 import Link from "next/link";
 import OrderDelete from "./order-delete";
 import { OrderResponse } from "@/models/order";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type OrderDetaisProps = {
   order: OrderResponse;
@@ -45,7 +50,7 @@ export default function OrderDetais({
   const styles = statusStylesCard[status as Status];
 
   return (
-    <DialogContent className="flex w-full max-w-[40rem] flex-col gap-9">
+    <DialogContent className="flex w-full max-w-[40rem] flex-col gap-4">
       <DialogHeader className="flex-row items-baseline justify-between pt-6">
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-order">
@@ -90,7 +95,7 @@ export default function OrderDetais({
           )}
         </DropdownMenu>
       </DialogHeader>
-      <div className="flex w-full justify-between gap-2 rounded border border-border p-3">
+      <div className="flex w-full gap-10 rounded border border-border p-3">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
             <UserIcon className="size-[0.875rem]" />
@@ -118,16 +123,6 @@ export default function OrderDetais({
               </Link>
             </div>
           )}
-
-          <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
-            <BanknoteIcon className="size-[0.875rem]" />
-            <p className="text-xs font-medium">
-              Dinheiro{" "}
-              <span className="text-[0.625rem] font-medium text-[#9F9E7F]">
-                - Sem troco
-              </span>
-            </p>
-          </div>
         </div>
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-1 pr-10 text-[#605E48]">
@@ -136,12 +131,34 @@ export default function OrderDetais({
               {formatDateNew(order.startAt)} - {formatDateToDays(order.startAt)}
             </p>
           </div>
+
+          {order?.endAt && !isSameDate(order?.startAt, order?.endAt) && (
+            <div className="flex flex-wrap items-center gap-1 pr-10 text-xs font-medium text-destructive/90">
+              <CalendarIcon className="size-[0.875rem]" />
+
+              <p className="flex flex-wrap items-center gap-1">
+                Concluir até{" "}
+                <strong className="text-destructive">
+                  {formatDateNew(order.endAt)}
+                </strong>
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
       {order.products && <OrderCardTable order={order} />}
 
       <div className="block h-[1px] w-full bg-border"></div>
+
+      {order?.observation && (
+        <div className="space-y-2">
+          <Label>Observação</Label>
+          <ScrollArea className="h-24 cursor-default rounded-md border bg-white p-2 text-sm">
+            {order.observation}
+          </ScrollArea>
+        </div>
+      )}
 
       {modifyStatusOrder && (
         <div className="flex items-center justify-end gap-3">

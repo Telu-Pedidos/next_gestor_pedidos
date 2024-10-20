@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  BanknoteIcon,
+  CalendarIcon,
   ChevronDownIcon,
   LockIcon,
   UserIcon
@@ -19,7 +19,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Status, statuses } from "@/validations/order-validation";
 import { OrderResponse } from "@/models/order";
 import { formatNumberToHex, transformNameDelivery } from "@/utils/functions";
-import { formatDateToDays } from "@/helpers/date";
+import { formatDateNew, formatDateToDays, isSameDate } from "@/helpers/date";
 import { formatPrice } from "@/utils/format-price";
 import useOrders from "@/hooks/useOrders";
 import { Dispatch, SetStateAction } from "react";
@@ -96,16 +96,19 @@ export default function OrderCard({
                 {transformNameDelivery(order.delivery)}
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
-              <BanknoteIcon className="size-[0.875rem]" />
-              <p className="text-xs font-medium">
-                Dinheiro{" "}
-                <span className="text-[0.625rem] font-medium text-[#9F9E7F]">
-                  - Sem troco
-                </span>
-              </p>
-            </div>
+            {order?.endAt && !isSameDate(order?.startAt, order?.endAt) && (
+              <div className="flex flex-wrap items-center gap-1 text-xs font-medium text-destructive/90">
+                <CalendarIcon className="size-[0.875rem]" />
+                <p>
+                  Concluir até{" "}
+                  <strong className="text-destructive">
+                    {formatDateNew(order.endAt)}
+                  </strong>
+                </p>
+              </div>
+            )}
           </CardContent>
+
           <CardFooter className="mt-9 flex flex-wrap justify-between gap-2 p-0">
             <span className="text-xs text-[#9F947F]">
               Recebido há {formatDateToDays(order.startAt)}

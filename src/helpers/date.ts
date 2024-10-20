@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow, parseISO } from "date-fns";
+import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
 
@@ -31,4 +31,10 @@ export function formatDateNew(dateString: string): string {
   }
 
   return format(date, "dd/MM/yyyy");
+}
+
+export function isSameDate(startAt: string, endAt: string): boolean {
+  const startDate = parseISO(startAt);
+  const endDate = parseISO(endAt);
+  return isSameDay(startDate, endDate);
 }
