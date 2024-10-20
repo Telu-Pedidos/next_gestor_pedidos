@@ -297,6 +297,11 @@ export const CalendarDatePicker = React.forwardRef<
         label: "Ano Passado",
         start: startOfYear(subDays(today, 365)),
         end: endOfYear(subDays(today, 365))
+      },
+      {
+        label: "Todo período",
+        start: startOfYear(subDays(today, 1460)),
+        end: endOfYear(today)
       }
     ];
 
