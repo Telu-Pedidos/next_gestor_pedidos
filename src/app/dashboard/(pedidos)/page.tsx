@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { UploadIcon } from "lucide-react";
 import Link from "next/link";
 
+import Image from "next/image";
+import { IMAGE } from "@/utils/image";
+
 export default async function DashboardPage() {
   const { data } = await getOrders();
 
@@ -19,7 +22,18 @@ export default async function DashboardPage() {
           </Link>
         </Button>
       </div>
-      {data && <OrderCardManager orders={data} />}
+      {data && data?.length >= 1 ? (
+        <OrderCardManager orders={data} />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="flex w-fit flex-col items-center gap-4 p-4">
+            <strong className="cursor-default">
+              Nenhum pedido foi encontrado
+            </strong>
+            <Image src={IMAGE.Cat} width={120} height={120} alt="cat" />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
