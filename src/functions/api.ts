@@ -207,3 +207,9 @@ export function NEW_STATUS_ORDER({
     url: `${API_URL}/orders/${id}/status?newStatus=${newStatus}`
   };
 }
+
+export function GET_ORDER_MONTH(month: number) {
+  return {
+    url: `${API_URL}/orders/month/${month}`
+  };
+}
