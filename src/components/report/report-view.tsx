@@ -12,13 +12,13 @@ import {
 } from "date-fns";
 import { useMemo, useState } from "react";
 import { CalendarDatePicker } from "@/components/calendar-date-picker";
-import OrdersTable from "./table/orders-table";
+import OrdersTable from "@/app/dashboard/historico-pedidos/components/table/orders-table";
+import { usePathname } from "next/navigation";
+import { ReportBarChartLabel } from "@/app/dashboard/relatorios/components/report-bar-chart-label";
 
-export default function OrderHistoryManager({
-  data
-}: {
-  data: OrderResponse[];
-}) {
+export default function ReportView({ data }: { data: OrderResponse[] }) {
+  const pathname = usePathname();
+
   const today = new Date();
 
   const [selectedDateRange, setSelectedDateRange] = useState({
@@ -81,7 +81,16 @@ export default function OrderHistoryManager({
         date={selectedDateRange}
         onDateSelect={setSelectedDateRange}
       />
-      {filterOrderDate && <OrdersTable orders={filterOrderDate} />}
+
+      {pathname === "/dashboard/historico-pedidos" && filterOrderDate && (
+        <OrdersTable orders={filterOrderDate} />
+      )}
+
+      <div className="mt-6">
+        {pathname === "/dashboard/relatorios" && filterOrderDate && (
+          <ReportBarChartLabel />
+        )}
+      </div>
     </>
   );
 }

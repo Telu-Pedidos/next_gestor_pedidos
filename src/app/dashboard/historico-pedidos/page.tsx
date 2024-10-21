@@ -1,6 +1,6 @@
 import getOrders from "@/actions/order/get-orders";
 import { Metadata } from "next";
-import OrderHistoryManager from "./components/order-history-manager";
+import ReportView from "@/components/report/report-view";
 
 export const metadata: Metadata = {
   title: "Dashboard - Histórico | Télu Personalizados"
@@ -18,7 +18,7 @@ export default async function HistoricoPedidosPage() {
           </h1>
         </div>
 
-        {data && <OrderHistoryManager data={data} />}
+        {data && <ReportView data={data} />}
       </div>
     </main>
   );
