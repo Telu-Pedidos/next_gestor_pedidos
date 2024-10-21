@@ -1,4 +1,10 @@
-import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
+import {
+  format,
+  formatDistanceToNow,
+  isSameDay,
+  parseISO,
+  subMonths
+} from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
 
@@ -37,4 +43,17 @@ export function isSameDate(startAt: string, endAt: string): boolean {
   const startDate = parseISO(startAt);
   const endDate = parseISO(endAt);
   return isSameDay(startDate, endDate);
+}
+export function getLastSixMonths(date: Date) {
+  const lastSixMonths = [];
+
+  for (let i = 0; i < 6; i++) {
+    const currentMonth = subMonths(date, i);
+    const formattedMonth = format(currentMonth, "MMMM", { locale: ptBR });
+    const monthIndex = currentMonth.getMonth() + 1;
+
+    lastSixMonths.push({ formattedMonth, monthIndex });
+  }
+
+  return lastSixMonths.reverse();
 }
