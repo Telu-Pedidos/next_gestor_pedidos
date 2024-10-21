@@ -23,7 +23,7 @@ export default function Header() {
   }
 
   return (
-    <header className="flex flex-col justify-between border-r border-r-secondary bg-card p-6 pb-8 text-sm">
+    <header className="sticky top-0 flex h-screen flex-col justify-between border-r border-r-secondary bg-card p-6 pb-8 text-sm">
       <div>
         <Link href="/dashboard" className="mb-8 flex items-center gap-3">
           <Image
