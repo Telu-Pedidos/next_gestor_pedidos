@@ -24,8 +24,6 @@ export const uploadImage = async (formData: FormData) => {
       fileName: image.name
     });
 
-    console.log("Imagem carregada com sucesso:", response);
-
     return response;
   } catch (error) {
     console.error("Erro ao fazer upload da imagem:", error);
