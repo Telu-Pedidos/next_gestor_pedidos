@@ -14,7 +14,7 @@ export default function CategoryCreate() {
           Cadastrar Categoria
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[90%]">
+      <DialogContent>
         <CategoryForm />
       </DialogContent>
     </Dialog>

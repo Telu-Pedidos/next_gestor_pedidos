@@ -14,7 +14,7 @@ export default function ModelCreate() {
           Cadastrar Modelo
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[90%]">
+      <DialogContent>
         <ModelForm />
       </DialogContent>
     </Dialog>
