@@ -263,13 +263,9 @@ export default function ProductForm({ product, id }: ProductFormProps) {
 
           <div className="col-span-2 mt-6 flex w-full flex-wrap gap-4">
             {id ? (
-              <Button disabled={isPending}>
-                {isPending ? "Alterando..." : "Alterar"}
-              </Button>
+              <Button disabled={isPending}>Alterar</Button>
             ) : (
-              <Button disabled={isPending}>
-                {isPending ? "Salvando..." : "Salvar"}
-              </Button>
+              <Button disabled={isPending}>Salvar</Button>
             )}
             <Button
               type="button"

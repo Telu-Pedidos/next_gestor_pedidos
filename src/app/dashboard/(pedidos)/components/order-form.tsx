@@ -278,15 +278,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
           <Separator className="mt-2 block h-[1px] w-full bg-border" />
 
           <div className="col-span-2 mt-2 flex w-full flex-wrap gap-4">
-            <Button disabled={isPending}>
-              {isPending
-                ? id
-                  ? "Alterando..."
-                  : "Salvando..."
-                : id
-                  ? "Alterar"
-                  : "Salvar"}
-            </Button>
+            <Button disabled={isPending}>{id ? "Alterar" : "Salvar"}</Button>
             <Button
               type="button"
               variant="outline"

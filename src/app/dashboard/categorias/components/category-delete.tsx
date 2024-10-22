@@ -58,15 +58,13 @@ export default function CategoryDelete({ id, name }: CategoryDeleteProps) {
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
           <DialogClose>
-            {isPending ? (
-              <Button variant="destructive" onClick={handleClick} disabled>
-                Excluindo...
-              </Button>
-            ) : (
-              <Button variant="destructive" onClick={handleClick}>
-                Excluir
-              </Button>
-            )}
+            <Button
+              variant="destructive"
+              onClick={handleClick}
+              disabled={isPending}
+            >
+              Excluir
+            </Button>
           </DialogClose>
         </div>
       </DialogContent>
