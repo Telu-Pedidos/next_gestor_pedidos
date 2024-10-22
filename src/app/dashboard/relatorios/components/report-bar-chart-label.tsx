@@ -49,7 +49,7 @@ export function ReportBarChartLabel() {
         </CardDescription>
       </CardHeader>
       {isPending ? (
-        <Skeleton className="h-[597px] w-full rounded-xl bg-gray-100 p-6" />
+        <Skeleton className="hidden h-[597px] w-full rounded-xl bg-gray-100 p-6 sm:block" />
       ) : (
         <CardContent>
           <ChartContainer config={chartConfig}>

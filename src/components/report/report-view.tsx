@@ -54,7 +54,7 @@ export default function ReportView({ data }: { data: OrderResponse[] }) {
 
   return (
     <>
-      <div className="mb-2 flex flex-wrap justify-end gap-8">
+      <div className="mb-10 flex flex-col flex-wrap justify-end gap-4 sm:mb-2 sm:flex-row sm:gap-8">
         <div className="space-y-1">
           <h2 className="text-sm font-medium text-[#666358]">
             Venda total (período)
@@ -80,6 +80,7 @@ export default function ReportView({ data }: { data: OrderResponse[] }) {
       <CalendarDatePicker
         date={selectedDateRange}
         onDateSelect={setSelectedDateRange}
+        className="w-full justify-start"
       />
 
       {pathname === "/dashboard/historico-pedidos" && filterOrderDate && (

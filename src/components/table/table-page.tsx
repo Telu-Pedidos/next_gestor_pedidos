@@ -38,7 +38,7 @@ export default function TablePage<T>({
 }: TablePageProps<T>) {
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex flex-wrap items-center gap-y-4 py-4">
         {showInput && (
           <Input
             placeholder="Busque por nome"
@@ -135,7 +135,7 @@ export default function TablePage<T>({
               {table.getPageCount().toLocaleString()}
             </strong>
           </span>
-          <p>
+          <p className="text-xs sm:text-sm">
             Exibindo {table.getRowModel().rows.length.toLocaleString()} de{" "}
             {table.getFilteredRowModel().rows.length} linha(s).
           </p>

@@ -28,7 +28,7 @@ export default function OrderCardTable({ order }: { order: OrderResponse }) {
             <TableRow key={product.id}>
               <TableCell className="font-medium">1</TableCell>
               <TableCell>
-                <div className="flex items-center gap-2 font-semibold text-foreground">
+                <div className="flex flex-wrap items-center gap-2 font-semibold text-foreground">
                   <Image
                     src={transformPhotoProduct(product.imageUrl || "")}
                     alt={product.name}
@@ -41,7 +41,7 @@ export default function OrderCardTable({ order }: { order: OrderResponse }) {
                       {product.name}
                     </span>
                     {product?.model && (
-                      <strong className="w-fit cursor-default rounded-md bg-primary p-1 text-xs font-semibold text-active">
+                      <strong className="w-fit cursor-default rounded-md bg-primary/60 p-1 text-xs font-semibold text-active">
                         {product.model?.name}
                       </strong>
                     )}

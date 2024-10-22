@@ -84,7 +84,7 @@ export default function OrderSelectProduct({
           <DialogContent className="w-full max-w-4xl">
             <ToggleGroup
               type="single"
-              className="w-full"
+              className="mt-10 flex w-full flex-wrap sm:flex-nowrap"
               value={selectOption}
               onValueChange={(value) => {
                 if (value !== selectOption) {
@@ -97,12 +97,14 @@ export default function OrderSelectProduct({
               <ToggleGroupItem
                 value="allProductsOption"
                 aria-label="Mudar para mostrar todos os produtos"
+                className="w-full sm:w-fit"
               >
                 Mostrar Produtos
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="selectProductsOption"
                 aria-label="Mudar para produtos selecionados"
+                className="w-full sm:w-fit"
               >
                 Produtos Selecionados
               </ToggleGroupItem>

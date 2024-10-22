@@ -14,12 +14,12 @@ export default async function ProdutosPage() {
 
   return (
     <main>
-      <div className="max-w-7xl rounded-md bg-card px-5 py-4">
+      <div className="max-w-full rounded-md bg-card px-5 py-4 lg:max-w-7xl">
         <div className="mb-3 flex items-center justify-between">
           <h1 className="text-2xl font-medium text-title">Produtos</h1>
         </div>
 
-        <div className="flex w-full">
+        <div className="mb-6 flex w-full sm:mb-1">
           <Button className="gap-2" asChild>
             <Link href="/dashboard/produtos/cadastrar">
               <UploadIcon className="size-[1.125rem]" />

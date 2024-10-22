@@ -13,12 +13,12 @@ export default async function DashboardPage() {
 
   return (
     <main className="w-full max-w-[1180px] px-3 py-6 lg:px-1">
-      <div className="mb-6 flex justify-between gap-2">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-x-2 gap-y-4">
         <OrderStatusManager orders={data} />
         <Button className="gap-2" asChild>
           <Link href="/dashboard/cadastrar">
-            <UploadIcon className="size-[1.125rem]" />
-            Criar Pedido
+            <UploadIcon className="size-4 md:size-[1.125rem]" />
+            <span className="text-xs md:text-sm">Criar Pedido</span>
           </Link>
         </Button>
       </div>

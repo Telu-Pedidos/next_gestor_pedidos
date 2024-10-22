@@ -81,12 +81,12 @@ export default function OrderForm({ order, id }: OrderFormProps) {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-4"
         >
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="clientId"
               render={({ field }) => (
-                <FormItem className="w-60 space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-60">
                   <FormLabel className="text-[#595548]">Cliente</FormLabel>
                   <Select
                     value={
@@ -120,7 +120,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
               control={form.control}
               name="total"
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-fit">
                   <FormLabel className="text-[#595548]">Total</FormLabel>
                   <FormControl>
                     <NumericFormat
@@ -147,7 +147,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
             />
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="productIds"
@@ -162,12 +162,12 @@ export default function OrderForm({ order, id }: OrderFormProps) {
             />
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="delivery"
               render={({ field }) => (
-                <FormItem className="w-48 space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-48">
                   <FormLabel className="text-[#595548]">Entrega</FormLabel>
                   <Select
                     value={field.value}
@@ -195,7 +195,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
               control={form.control}
               name="status"
               render={({ field }) => (
-                <FormItem className="w-48 space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-48">
                   <FormLabel className="text-[#595548]">Status</FormLabel>
                   <Select
                     value={field.value}
@@ -226,7 +226,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
             />
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="startAt"
@@ -255,7 +255,7 @@ export default function OrderForm({ order, id }: OrderFormProps) {
             />
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="observation"

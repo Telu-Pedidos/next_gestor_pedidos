@@ -21,11 +21,11 @@ export default async function DashboardLayout({
   return (
     <OrderProvider>
       <Toaster position="top-center" />
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen flex-col gap-4 md:flex-row md:px-0">
         <Header />
-        <div className="flex-1">
+        <div className="flex-1 md:px-4">
           <Menu />
-          <div className="ml-8 mt-7">{children}</div>
+          {children}
         </div>
       </div>
     </OrderProvider>

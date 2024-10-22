@@ -46,12 +46,12 @@ export default function ClientForm({ client, id }: ClientFormProps) {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-4"
         >
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="w-full max-w-52 space-y-1">
+                <FormItem className="w-full max-w-full space-y-1 sm:max-w-52">
                   <FormLabel className="text-[#595548]">Nome</FormLabel>
                   <FormControl>
                     <Input placeholder="Nome do cliente" {...field} />
@@ -64,7 +64,7 @@ export default function ClientForm({ client, id }: ClientFormProps) {
               control={form.control}
               name="phone"
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-fit">
                   <FormLabel className="text-[#595548]">Telefone</FormLabel>
                   <FormControl>
                     <PatternFormat
@@ -81,12 +81,12 @@ export default function ClientForm({ client, id }: ClientFormProps) {
             />
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="max-w-52 space-y-1">
+                <FormItem className="w-full space-y-1 sm:max-w-52">
                   <FormLabel className="text-[#595548]">E-mail</FormLabel>
                   <FormControl>
                     <Input placeholder="Email do cliente" {...field} />
@@ -99,7 +99,7 @@ export default function ClientForm({ client, id }: ClientFormProps) {
               control={form.control}
               name="address"
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="w-full space-y-1 sm:max-w-52">
                   <FormLabel className="text-[#595548]">Endereço</FormLabel>
                   <FormControl>
                     <Input placeholder="Endereço do cliente" {...field} />

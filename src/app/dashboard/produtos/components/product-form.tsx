@@ -99,7 +99,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                     />
                   </FormControl>
                   <div
-                    className="relative mt-4 h-48 w-48 cursor-pointer"
+                    className="relative mt-4 h-48 w-full cursor-pointer sm:w-48"
                     onClick={() =>
                       document.getElementById("fileInput")?.click()
                     }
@@ -124,12 +124,12 @@ export default function ProductForm({ product, id }: ProductFormProps) {
             />
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="w-full max-w-52 space-y-1">
+                <FormItem className="w-full max-w-full space-y-1 sm:max-w-52">
                   <FormLabel className="text-[#595548]">Nome</FormLabel>
                   <FormControl>
                     <Input placeholder="Nome do produto" {...field} />
@@ -142,7 +142,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
               control={form.control}
               name="price"
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-fit">
                   <FormLabel className="text-[#595548]">Preço</FormLabel>
                   <FormControl>
                     <NumericFormat
@@ -171,12 +171,12 @@ export default function ProductForm({ product, id }: ProductFormProps) {
             />
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-8 sm:flex-nowrap">
             <FormField
               control={form.control}
               name="categoryId"
               render={({ field }) => (
-                <FormItem className="w-48 space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-48">
                   <FormLabel className="text-[#595548]">Categoria</FormLabel>
                   <Select
                     value={
@@ -213,7 +213,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
               control={form.control}
               name="modelId"
               render={({ field }) => (
-                <FormItem className="w-48 space-y-1">
+                <FormItem className="w-full space-y-1 sm:w-48">
                   <FormLabel className="text-[#595548]">Modelo</FormLabel>
                   <Select
                     value={
@@ -234,7 +234,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                     <SelectContent>
                       {models?.map((model) => (
                         <SelectItem value={String(model.id)} key={model.id}>
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
                             {model?.imageUrl && (
                               <>
                                 <Image

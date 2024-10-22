@@ -95,7 +95,7 @@ export default function OrderDetais({
           )}
         </DropdownMenu>
       </DialogHeader>
-      <div className="flex w-full gap-10 rounded border border-border p-3">
+      <div className="flex w-full flex-wrap gap-10 rounded border border-border p-3">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-1 text-[#605E48]">
             <UserIcon className="size-[0.875rem]" />

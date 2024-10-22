@@ -13,7 +13,7 @@ export default function OrderStatusManager({
   const { activeStatus, setActiveStatus } = useOrders({});
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-3 clock:flex-nowrap">
       {statuses.map((orderStatus) => {
         const activeOrdersData =
           orders?.filter((order) => order.status === orderStatus) ?? [];

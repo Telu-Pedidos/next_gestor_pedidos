@@ -46,7 +46,7 @@ export default function OrderStatus({
           {renderStatusIcon(status)}
         </span>
         <div className="flex items-center gap-2 text-sm font-semibold text-order">
-          <p>{renderStatusText(status)}</p>
+          <p className="hidden sm:block">{renderStatusText(status)}</p>
           {orderSize > 0 && (
             <span
               className={`flex size-4 items-center justify-center rounded-full bg-destructive text-xs font-normal text-white ${styles.border} ${styles.background}`}
