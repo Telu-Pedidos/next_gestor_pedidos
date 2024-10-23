@@ -21,9 +21,9 @@ export default async function DashboardLayout({
   return (
     <OrderProvider>
       <Toaster position="top-center" />
-      <div className="flex min-h-screen flex-col gap-4 md:flex-row md:px-0">
+      <div className="flex min-h-screen w-full flex-col gap-4 md:flex-row md:px-0">
         <Header />
-        <div className="flex-1 md:px-4">
+        <div className="w-full md:px-4">
           <Menu />
           {children}
         </div>

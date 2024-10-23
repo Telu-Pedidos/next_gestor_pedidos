@@ -11,17 +11,15 @@ export default async function ModelosPage() {
   const { data } = await getModels();
 
   return (
-    <main>
-      <div className="max-w-6xl rounded-md bg-card px-5 py-4">
-        <div className="mb-3 flex items-center justify-between">
-          <h1 className="text-2xl font-medium text-title">Modelos</h1>
-        </div>
-
-        <div className="flex w-full">
-          <ModelCreate />
-        </div>
-        {data && <ModelsTable models={data} />}
+    <main className="max-w-6xl rounded-md bg-card px-5 py-4">
+      <div className="mb-3 flex items-center justify-between">
+        <h1 className="text-2xl font-medium text-title">Modelos</h1>
       </div>
+
+      <div className="flex w-full">
+        <ModelCreate />
+      </div>
+      {data && <ModelsTable models={data} />}
     </main>
   );
 }

@@ -33,7 +33,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 hidden h-screen flex-col justify-between border-r border-r-secondary bg-card p-6 pb-8 text-sm md:flex md:w-72">
+      <header className="sticky top-0 hidden h-screen flex-col justify-between border-r border-r-secondary bg-card p-6 pb-8 text-sm md:flex md:w-64 md:min-w-64 lg:w-72 lg:min-w-72">
         <div>
           <Link
             href="/dashboard"
