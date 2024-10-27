@@ -3,7 +3,7 @@ import ReportView from "@/components/report/report-view";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Relatórios | Télu Personalizados"
+  title: "Dashboard - Relatórios | Télu Pedidos"
 };
 
 export default async function RelatoriosPage() {

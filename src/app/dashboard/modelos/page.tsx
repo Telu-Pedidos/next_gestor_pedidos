@@ -4,7 +4,7 @@ import ModelsTable from "./components/table/models-table";
 import ModelCreate from "./components/model-create";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Modelos | Télu Personalizados"
+  title: "Dashboard - Modelos | Télu Pedidos"
 };
 
 export default async function ModelosPage() {

@@ -8,9 +8,8 @@ import Menu from "@/components/menu";
 import { OrderProvider } from "@/context/order-context";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Télu Personalizados",
-  description:
-    "Dashboard de administrador do gestor de pedidos Télu Personalizados"
+  title: "Dashboard | Télu Pedidos",
+  description: "Dashboard de administrador do gestor de pedidos Télu Pedidos"
 };
 
 export default async function DashboardLayout({

@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import ClientsTable from "./components/table/clients-table";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Clientes | Télu Personalizados"
+  title: "Dashboard - Clientes | Télu Pedidos"
 };
 
 export default async function ClientesPage() {

@@ -41,7 +41,7 @@ export default function Header() {
           >
             <Image
               src={IMAGE.LogoSm}
-              alt="Télu Personalizados"
+              alt="Télu Pedidos"
               width={96}
               height={96}
               className="size-16 md:size-12"
@@ -102,13 +102,13 @@ export function HeaderMobile() {
       <Link href="/dashboard" className="flex flex-wrap items-center gap-3">
         <Image
           src={IMAGE.LogoSm}
-          alt="Télu Personalizados"
+          alt="Télu Pedidos"
           width={48}
           height={48}
           className="size-12 md:size-12"
         />
         <span className="hidden text-sm font-semibold uppercase text-active clock:block">
-          Télu Personalizados
+          Télu Pedidos
         </span>
       </Link>
       <Sheet>

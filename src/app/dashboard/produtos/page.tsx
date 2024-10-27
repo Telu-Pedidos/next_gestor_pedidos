@@ -6,7 +6,7 @@ import ProductsTable from "./components/table/products-table";
 import { UploadIcon } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Produtos | Télu Personalizados"
+  title: "Dashboard - Produtos | Télu Pedidos"
 };
 
 export default async function ProdutosPage() {

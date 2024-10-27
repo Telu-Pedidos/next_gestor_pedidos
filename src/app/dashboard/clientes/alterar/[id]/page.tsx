@@ -5,7 +5,7 @@ import getClientId from "@/actions/client/get-client-id";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Alterar Cliente | Télu Personalizados"
+  title: "Dashboard - Alterar Cliente | Télu Pedidos"
 };
 
 type ClientIdParams = {

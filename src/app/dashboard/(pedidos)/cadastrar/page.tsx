@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import OrderForm from "../components/order-form";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Cadastrar Pedidos | Télu Personalizados"
+  title: "Dashboard - Cadastrar Pedidos | Télu Pedidos"
 };
 
 export default function CadastrarProdutoPage() {

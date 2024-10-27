@@ -4,7 +4,7 @@ import CategoriesTable from "./table/categories-table";
 import CategoryCreate from "./components/category-create";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Categorias | Télu Personalizados"
+  title: "Dashboard - Categorias | Télu Pedidos"
 };
 
 export default async function CategoriasPage() {

@@ -5,7 +5,7 @@ import ProductForm from "../../../components/product-form";
 import getProductId from "@/actions/product/get-product-id";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Alterar Produto | Télu Personalizados"
+  title: "Dashboard - Alterar Produto | Télu Pedidos"
 };
 
 type ProdutoIdParams = {
