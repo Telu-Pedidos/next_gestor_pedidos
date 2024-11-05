@@ -13,7 +13,7 @@ export default async function ProdutosPage() {
   const { data } = await getProducts();
 
   return (
-    <main className="max-w-full rounded-md bg-card px-5 py-4 lg:max-w-7xl">
+    <main className="w-full max-w-full rounded-md bg-card px-5 py-4">
       <div className="mb-3 flex items-center justify-between">
         <h1 className="text-2xl font-medium text-title">Produtos</h1>
       </div>

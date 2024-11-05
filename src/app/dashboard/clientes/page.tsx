@@ -13,7 +13,7 @@ export default async function ClientesPage() {
   const { data } = await getClients();
 
   return (
-    <main className="w-full max-w-6xl rounded-md bg-card px-5 py-4">
+    <main className="w-full max-w-full rounded-md bg-card px-5 py-4">
       <div className="mb-3 flex items-center justify-between">
         <h1 className="text-2xl font-medium text-title">Clientes</h1>
 

@@ -11,7 +11,7 @@ export default async function ModelosPage() {
   const { data } = await getModels();
 
   return (
-    <main className="max-w-6xl rounded-md bg-card px-5 py-4">
+    <main className="max-w-full rounded-md bg-card px-5 py-4">
       <div className="mb-3 flex items-center justify-between">
         <h1 className="text-2xl font-medium text-title">Modelos</h1>
       </div>
