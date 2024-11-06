@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 export default async function CategoriasPage() {
   const { data } = await getCategories();
+  const newData = data?.reverse() ?? null;
 
   return (
     <main className="w-full max-w-full rounded-md bg-card px-5 py-4">
@@ -19,7 +20,7 @@ export default async function CategoriasPage() {
       <div className="flex w-full">
         <CategoryCreate />
       </div>
-      {data && <CategoriesTable categories={data} />}
+      {newData && <CategoriesTable categories={newData} />}
     </main>
   );
 }

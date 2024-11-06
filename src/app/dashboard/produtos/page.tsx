@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 export default async function ProdutosPage() {
   const { data } = await getProducts();
+  const newData = data?.reverse() ?? null;
 
   return (
     <main className="w-full max-w-full rounded-md bg-card px-5 py-4">
@@ -26,7 +27,7 @@ export default async function ProdutosPage() {
           </Link>
         </Button>
       </div>
-      {data && <ProductsTable products={data} />}
+      {newData && <ProductsTable products={newData} />}
     </main>
   );
 }

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 export default async function ClientesPage() {
   const { data } = await getClients();
+  const newData = data?.reverse() ?? null;
 
   return (
     <main className="w-full max-w-full rounded-md bg-card px-5 py-4">
@@ -19,7 +20,7 @@ export default async function ClientesPage() {
 
         <div className="text-sm font-medium">
           <p className="mb-1 text-[#666358]">Total de clientes</p>
-          <span className="text-title">{data?.length}</span>
+          <span className="text-title">{newData?.length}</span>
         </div>
       </div>
       <div className="flex w-full">
@@ -30,7 +31,7 @@ export default async function ClientesPage() {
           </Link>
         </Button>
       </div>
-      {data && <ClientsTable clients={data} />}
+      {newData && <ClientsTable clients={newData} />}
     </main>
   );
 }

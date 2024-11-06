@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 
 export default async function RelatoriosPage() {
   const { data } = await getOrders();
+  const newData = data?.reverse() ?? null;
 
   return (
     <main className="max-w-6xl rounded-md bg-card px-5 py-4">
@@ -15,7 +16,7 @@ export default async function RelatoriosPage() {
         <h1 className="text-2xl font-medium text-title">Relatórios</h1>
       </div>
 
-      {data && <ReportView data={data} />}
+      {newData && <ReportView data={newData} />}
     </main>
   );
 }

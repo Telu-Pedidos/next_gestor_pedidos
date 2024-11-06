@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 export default async function ModelosPage() {
   const { data } = await getModels();
+  const newData = data?.reverse() ?? null;
 
   return (
     <main className="max-w-full rounded-md bg-card px-5 py-4">
@@ -19,7 +20,7 @@ export default async function ModelosPage() {
       <div className="flex w-full">
         <ModelCreate />
       </div>
-      {data && <ModelsTable models={data} />}
+      {newData && <ModelsTable models={newData} />}
     </main>
   );
 }

@@ -10,11 +10,12 @@ import { IMAGE } from "@/utils/image";
 
 export default async function DashboardPage() {
   const { data } = await getOrders();
+  const newData = data?.reverse() ?? null;
 
   return (
     <main className="w-full max-w-full px-3 py-6 lg:px-1">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-x-2 gap-y-4">
-        <OrderStatusManager orders={data} />
+        <OrderStatusManager orders={newData} />
         <Button className="gap-2" asChild>
           <Link href="/dashboard/cadastrar">
             <UploadIcon className="size-4 md:size-[1.125rem]" />
@@ -22,8 +23,8 @@ export default async function DashboardPage() {
           </Link>
         </Button>
       </div>
-      {data && data?.length >= 1 ? (
-        <OrderCardManager orders={data} />
+      {newData && newData?.length >= 1 ? (
+        <OrderCardManager orders={newData} />
       ) : (
         <div className="flex h-full w-full items-center justify-center">
           <div className="flex w-fit flex-col items-center gap-4 p-4">
